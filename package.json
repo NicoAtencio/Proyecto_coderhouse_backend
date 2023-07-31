@@ -1,0 +1,15 @@
+{
+  "name": "proyecto_coderhouse_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hector Nicolas Atencio",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
