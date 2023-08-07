@@ -1,0 +1,63 @@
+<form id="formulario">
+    <input type="text" id="" placeholder="Nombre del producto" required="">
+    <input type="text" id="" placeholder="Descripcion" required="">
+    <input type="number" name="code" id="code" placeholder="codigo" required="">
+    <input type="number" name="price" id="price" placeholder="precio"  required="">
+    <select class="" aria-label="Default select example" required="">
+        <option selected>Estado</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+    </select>
+    <input type="number" name="stock" id="stock" placeholder="stock" required="">
+    <input type="text" name="category" id="" placeholder="categoria" required="">
+    <input type="submit" value="Agregar" required="">
+</form>
+
+    <div class="container contenedor contenedor_tiempo_real"> 
+     <div class="row">
+            <div class="col col__principal">
+                ID
+            </div>
+            <div class="col col__principal">
+                Product
+            </div>
+            <div class="col col__principal">
+                Description
+            </div>
+            <div class="col col__principal">
+                Code
+            </div>
+            <div class="col col__principal">
+                Price
+            </div>
+            <div class="col col__principal">
+                Status
+            </div>
+            <div class="col col__principal">
+                Stock
+            </div>
+            <div class="col col__principal">
+                Category
+            </div>
+        </div>
+        <div class="actualizar">
+    {{#each products}}
+        <div class="row">
+            <div class="col">{{this.id}}</div>
+            <div class="col">{{this.title}}</div>
+            <div class="col">{{this.description}}</div>
+            <div class="col">{{this.code}}</div>
+            <div class="col">{{this.price}}</div>
+            <div class="col">{{this.status}}</div>
+            <div class="col">{{this.stock}}</div>
+            <div class="col">{{this.category}}</div>
+        </div>
+    {{/each}}
+    </div>
+</div>
+<form id="eliminar">
+    <input type="number" placeholder="ID a eliminar">
+    <input type="submit" value="Eliminar">
+</form>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

@@ -1,0 +1,40 @@
+<div class="container contenedor"> 
+     <div class="row">
+            <div class="col col__principal">
+                ID
+            </div>
+            <div class="col col__principal">
+                Product
+            </div>
+            <div class="col col__principal">
+                Description
+            </div>
+            <div class="col col__principal">
+                Code
+            </div>
+            <div class="col col__principal">
+                Price
+            </div>
+            <div class="col col__principal">
+                Status
+            </div>
+            <div class="col col__principal">
+                Stock
+            </div>
+            <div class="col col__principal">
+                Category
+            </div>
+        </div>
+    {{#each products}}
+        <div class="row">
+            <div class="col">{{this.id}}</div>
+            <div class="col">{{this.title}}</div>
+            <div class="col">{{this.description}}</div>
+            <div class="col">{{this.code}}</div>
+            <div class="col">{{this.price}}</div>
+            <div class="col">{{this.status}}</div>
+            <div class="col">{{this.stock}}</div>
+            <div class="col">{{this.category}}</div>
+        </div>
+    {{/each}}
+</div>

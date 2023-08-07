@@ -1,0 +1,28 @@
+h1{
+    text-align: center;
+}
+
+ .contenedor{ 
+    width: 100%;
+    border: 1px solid #000;
+} 
+
+.col{
+    border: 1px solid #000;
+    text-align: center;
+}
+
+#code, #stock, #price{
+    width: 90px;
+}
+
+#formulario{
+    /* background: red; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.contenedor_tiempo_real{
+    margin-top: 10px;
+}

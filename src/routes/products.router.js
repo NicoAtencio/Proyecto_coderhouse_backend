@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validar } from "../utils.js";
 import product from "../ProductManager.js";
+import socketServer from "../app.js";
 
 const router = Router();
 
@@ -24,12 +24,10 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const body = req.body;
-  if(validar(body)){
-    const addNewProduct = await product.addProduct(body)
-    res.send(addNewProduct)
-  }else{
-    res.send({mensaje:'Debe enviar todos los campos obligatorios.'})
-  }
+  const addNewProduct = await product.addProduct(body)
+  const products = await product.getProducts();
+  socketServer.emit('datos', products);
+  res.send(addNewProduct);
 });
 
 
@@ -44,6 +42,8 @@ router.put("/:pid", async (req, res) => {
 router.delete("/:pid", async (req, res) => {
   const { pid } = req.params;
   const deletedProduct = await product.deleteProduct(pid);
+  const products = await product.getProducts();
+  socketServer.emit('eliminar', products)
   typeof deletedProduct === 'string' ? res.send({mensaje: deletedProduct}) : res.send(deletedProduct)
 });
 

@@ -1,5 +1,5 @@
 import { existsSync, promises } from "fs";
-import { __dirmane } from "./utils.js";
+import { __dirname } from "./utils.js";
 
 class CartsManager {
     constructor(path){
@@ -67,5 +67,5 @@ class CartsManager {
     }
 }
 
-const carts = new CartsManager(__dirmane+'/data/carts.json');
+const carts = new CartsManager(__dirname+'/data/carts.json');
 export default carts
