@@ -5,6 +5,7 @@ const contenedor = document.querySelector('.actualizar');
 const formularioEliminar = document.getElementById('eliminar');
 
 formulario.addEventListener('submit', (e) => {
+    const imagen = formulario[7].value || '';
     const newProduct = {
         title: formulario[0].value,
         description: formulario[1].value,
@@ -12,7 +13,8 @@ formulario.addEventListener('submit', (e) => {
         price: parseInt(formulario[3].value),
         status: formulario[4].value,
         stock: parseInt(formulario[5].value),
-        category: formulario[6].value
+        category: formulario[6].value,
+        thumbnails: imagen
     };
     e.preventDefault();
     enviarDatos(newProduct);

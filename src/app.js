@@ -20,7 +20,7 @@ app.set('view engine', 'handlebars');
 // routes
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
-app.use('/api/views', viewsRouter)
+app.use('/', viewsRouter)
 
 const PORT = 8080;
 
