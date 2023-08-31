@@ -1,0 +1,41 @@
+<div class="container contenedor"> 
+     <div class="row">
+            {{!-- <div class="col col__principal">
+                ID
+            </div> --}}
+            <div class="col col__principal">
+                Product
+            </div>
+            <div class="col col__principal">
+                Description
+            </div>
+            <div class="col col__principal">
+                Price
+            </div>
+            <div class="col col__principal">
+                Status
+            </div>
+            <div class="col col__principal">
+                Stock
+            </div>
+            <div class="col col__principal">
+                Category
+            </div>
+            <div class="col col__principal">
+                Agregar
+            </div>
+        </div>
+    {{#each products}}
+        <div class="row">
+            {{!-- <div class="col">{{this._doc._id}}</div> --}}
+            <div class="col">{{this._doc.title}}</div>
+            <div class="col">{{this._doc.description}}</div>
+            <div class="col">{{this._doc.price}}</div>
+            <div class="col">{{this._doc.status}}</div>
+            <div class="col">{{this._doc.stock}}</div>
+            <div class="col">{{this._doc.category}}</div>
+            <div class="col"><button type="button" class="agregar" id={{this._doc._id}}>+</button></div>
+        </div>
+    {{/each}}
+</div>
+<script src="/js/products.js"></script>

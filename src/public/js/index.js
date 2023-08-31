@@ -23,7 +23,8 @@ formulario.addEventListener('submit', (e) => {
 
 formularioEliminar.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = parseInt(formularioEliminar[0].value);
+    const id = formularioEliminar[0].value;
+    console.log(id);
     await fetch(`http://localhost:8080/api/products/${id}`,{
         method: "DELETE",
         headers: {
@@ -45,24 +46,28 @@ const enviarDatos = async (obj) => {
         },
     })
     .then(res => res.json())
-    .then(res => console.log(res))
+    .then(res => {
+        console.log(res);
+        alert('Producto agregado con exito')
+    })
     .catch(err => console.log(err))
 }
 
 
 socketClient.on('datos', datos => {
+    console.log('datos',datos);
     contenedor.innerHTML = ''
     for (const dato of datos) {
         contenedor.innerHTML += `
         <div class = row>
-            <div class = col>${dato.id}</div>
-            <div class = col>${dato.title}</div>
-            <div class = col>${dato.description}</div>
-            <div class = col>${dato.code}</div>
-            <div class = col>${dato.price}</div>
-            <div class = col>${dato.status}</div>
-            <div class = col>${dato.stock}</div>
-            <div class = col>${dato.category}</div>
+            <div class = col>${dato._doc._id}</div>
+            <div class = col>${dato._doc.title}</div>
+            <div class = col>${dato._doc.description}</div>
+            <div class = col>${dato._doc.code}</div>
+            <div class = col>${dato._doc.price}</div>
+            <div class = col>${dato._doc.status}</div>
+            <div class = col>${dato._doc.stock}</div>
+            <div class = col>${dato._doc.category}</div>
         </div>`
     }
 });
@@ -72,14 +77,14 @@ socketClient.on('eliminar', datos => {
     for (const dato of datos) {
         contenedor.innerHTML += `
         <div class = row>
-            <div class = col>${dato.id}</div>
-            <div class = col>${dato.title}</div>
-            <div class = col>${dato.description}</div>
-            <div class = col>${dato.code}</div>
-            <div class = col>${dato.price}</div>
-            <div class = col>${dato.status}</div>
-            <div class = col>${dato.stock}</div>
-            <div class = col>${dato.category}</div>
+            <div class = col>${dato._doc._id}</div>
+            <div class = col>${dato._doc.title}</div>
+            <div class = col>${dato._doc.description}</div>
+            <div class = col>${dato._doc.code}</div>
+            <div class = col>${dato._doc.price}</div>
+            <div class = col>${dato._doc.status}</div>
+            <div class = col>${dato._doc.stock}</div>
+            <div class = col>${dato._doc.category}</div>
         </div>`
     }
 });

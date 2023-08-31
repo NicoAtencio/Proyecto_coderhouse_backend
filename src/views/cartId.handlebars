@@ -1,0 +1,29 @@
+<h2>Cart</h2>
+<div class="container contenedor"> 
+     <div class="row">
+            <div class="col col__principal">
+                ID
+            </div>
+            <div class="col col__principal">
+                Product
+            </div>
+            <div class="col col__principal">
+                Description
+            </div>
+            <div class="col col__principal">
+                Price
+            </div>
+            <div class="col col__principal">
+                Cantidad
+            </div>
+        </div>
+    {{#each nuevo}}
+        <div class="row">
+            <div class="col">{{this.id}}</div>
+            <div class="col">{{this.product}}</div>
+            <div class="col">{{this.description}}</div>
+            <div class="col">{{this.price}}</div>
+            <div class="col">{{this.quantity}}</div>
+        </div>
+    {{/each}}
+</div>
