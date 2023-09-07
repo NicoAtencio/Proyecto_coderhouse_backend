@@ -17,12 +17,8 @@ router.get('/:cid', async (req,res) => {
 router.post('/:cid', async (req,res) => {
     const {cid} = req.params;
     try {
-        const newMessage = await chatManager.insertChat(cid,req.body);
-        // El body debe ser {user:user, message:message};
-        const respuesta = await chatManager.getMessages(cid);
-        console.log(respuesta)
-        const messages = respuesta.messages;
-        socketServer.emit('allMessages', messages)
+        const algo =  await chatManager.insertChat(cid,req.body);
+        socketServer.emit('allMessages', algo)
         res.status(200).json(respuesta);
     } catch (error) {
         res.status(500).json({error})

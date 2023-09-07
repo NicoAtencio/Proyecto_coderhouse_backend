@@ -34,7 +34,7 @@ router.post('/', async (req,res) => {
 });
 // Crea un nuevo carro
 
-router.post('/:cid/product/:pid', async (req,res) => {
+router.put('/:cid/product/:pid', async (req,res) => {
     const { cid, pid } = req.params;
     const insertProduct = await cartManager.insertProduct(cid,pid);
     res.send(insertProduct);
@@ -69,7 +69,6 @@ router.delete('/:cid', async (req,res) => {
     const {cid} = req.params;
     try {
         const cart = await cartManager.deleteProducts(cid);
-        console.log('cart actualizado',cart)
         res.status(200).json(cart)
     } catch (error) {
         res.status(500).json({error})

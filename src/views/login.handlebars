@@ -1,0 +1,8 @@
+{{#if value}}
+    <h2>Se creó con exito el usuario {{username}}, ya puede ingresar.</h2>
+{{/if}}
+<form action="/api/login" method="post">
+    Username: <input type="text" name="username" id="username">
+    Password: <input type="password" name="password" id="password">
+    <input type="submit" value="login">
+</form>

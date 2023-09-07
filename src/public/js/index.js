@@ -24,7 +24,6 @@ formulario.addEventListener('submit', (e) => {
 formularioEliminar.addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = formularioEliminar[0].value;
-    console.log(id);
     await fetch(`http://localhost:8080/api/products/${id}`,{
         method: "DELETE",
         headers: {
@@ -47,7 +46,6 @@ const enviarDatos = async (obj) => {
     })
     .then(res => res.json())
     .then(res => {
-        console.log(res);
         alert('Producto agregado con exito')
     })
     .catch(err => console.log(err))
@@ -55,7 +53,6 @@ const enviarDatos = async (obj) => {
 
 
 socketClient.on('datos', datos => {
-    console.log('datos',datos);
     contenedor.innerHTML = ''
     for (const dato of datos) {
         contenedor.innerHTML += `

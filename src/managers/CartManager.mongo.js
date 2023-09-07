@@ -33,7 +33,6 @@ class CartManager {
             const cart = await cartModel.findById(cid);
             const array = cart.products;
             const index = array.findIndex(p => p.product == pid);
-            console.log(index)
             if(index === -1){
                 array.push({product:pid,quantity:1})
                 cart.save();
@@ -50,7 +49,6 @@ class CartManager {
     async deleteCart(id){
         try {
             const deleteCart = await cartModel.findByIdAndDelete(id);
-            console.log(deleteCart);
             return deleteCart;
         } catch (error) {
             return error

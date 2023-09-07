@@ -2,7 +2,7 @@ import { productModel } from "../db/models/products.model.js";
 
 class ProductManager {
     async getProducts(obj){
-        const {limit=10,page=1,sortPrice,...query} = obj;
+        const {limit=10,page=1,sortPrice,username,...query} = obj;
         try {
             const products = await productModel.paginate(query,{limit,page,sort:{price:sortPrice}});
             const info = {
