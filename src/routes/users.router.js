@@ -28,6 +28,6 @@ router.get('/logout', (req,res) => {
 // Al realizar la peticion get destruye la sesion en caso de que exista.
 
 // Para crear el usuario adminCoder@coder.com utilice el Thunder Client donde el body fue
-// {"first_name": "Coder","last_name": "House","user_name": "adminCoder@coder.com", "password": "adminCod3r123"};
+// {"first_name": "Coder","last_name": "House","user_name": "adminCoder@coder.com", "password": "adminCod3r123", "rol": "admin"}
 
 export default router;
