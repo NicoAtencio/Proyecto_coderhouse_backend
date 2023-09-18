@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     rol: {
         type: String,
         default: 'usuario'
+    },
+    fromGithub: {
+        type: Boolean,
+        default: false
     }
 });
 

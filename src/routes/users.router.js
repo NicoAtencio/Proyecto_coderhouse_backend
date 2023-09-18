@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userManager } from "../managers/UsersManager.js";
 import { hashData } from "../utils.js";
+import passport from "passport";
 
 const router = Router();
 
@@ -29,5 +30,16 @@ router.get('/logout', (req,res) => {
 
 // Para crear el usuario adminCoder@coder.com utilice el Thunder Client donde el body fue
 // {"first_name": "Coder","last_name": "House","user_name": "adminCoder@coder.com", "password": "adminCod3r123", "rol": "admin"}
+
+// Passport GIT-HUB
+router.get('/githubSignup', passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/github', passport.authenticate('github',{
+    failureRedirect: '/login'
+}), async (req,res) => {
+    const username=req.user.user_name
+    res.redirect(`/products?username=${username}`);
+});
+
 
 export default router;

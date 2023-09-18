@@ -12,6 +12,7 @@ import './db/dbConfig.js';
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import "./passport/passportStrategies.js";
 
 const app = express();
 
