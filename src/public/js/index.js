@@ -60,11 +60,8 @@ socketClient.on('datos', datos => {
             <div class = col>${dato._doc._id}</div>
             <div class = col>${dato._doc.title}</div>
             <div class = col>${dato._doc.description}</div>
-            <div class = col>${dato._doc.code}</div>
             <div class = col>${dato._doc.price}</div>
-            <div class = col>${dato._doc.status}</div>
             <div class = col>${dato._doc.stock}</div>
-            <div class = col>${dato._doc.category}</div>
         </div>`
     }
 });
@@ -77,10 +74,7 @@ socketClient.on('eliminar', datos => {
             <div class = col>${dato._doc._id}</div>
             <div class = col>${dato._doc.title}</div>
             <div class = col>${dato._doc.description}</div>
-            <div class = col>${dato._doc.code}</div>
             <div class = col>${dato._doc.price}</div>
-            <div class = col>${dato._doc.status}</div>
-            <div class = col>${dato._doc.stock}</div>
             <div class = col>${dato._doc.category}</div>
         </div>`
     }

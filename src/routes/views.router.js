@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { productsManager } from "../managers/ProductManager.mongo.js"
-import { cartManager } from "../managers/CartManager.mongo.js";
-import { chatManager } from "../managers/chatManager.mongo.js";
+import { productsManager } from "../dao/managers/ProductManager.mongo.js"
+import { cartManager } from "../dao/managers/CartManager.mongo.js";
+import { chatManager } from "../dao/managers/chatManager.mongo.js";
 import socketServer from "../app.js";
 
 const router = Router();

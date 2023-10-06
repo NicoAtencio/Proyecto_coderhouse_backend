@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { chatManager } from "../managers/chatManager.mongo.js";
+import { chatManager } from "../dao/managers/chatManager.mongo.js";
 import socketServer from "../app.js";
 
 const router = Router();

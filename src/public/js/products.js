@@ -12,4 +12,4 @@ for (let i = 0; i < botones.length; i++){
         .then((respuesta) => console.log(respuesta))
         .catch(err => console.log(err))
     })
-}
+};

@@ -5,14 +5,17 @@ import viewsRouter from "./routes/views.router.js";
 import chatRouter from "./routes/chat.router.js";
 import loginRouter from "./routes/login.router.js";
 import usersRouter from "./routes/users.router.js";
+import sessionRouter from "./routes/session.router.js"
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import { __dirname } from "./utils.js";
-import './db/dbConfig.js';
+import './dao/dbConfig.js';
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import "./passport/passportStrategies.js";
+import passport from "passport";
+import  config  from "./config.js";
 
 const app = express();
 
@@ -31,11 +34,16 @@ app.use(cookieParser('secretKeyCookies'));
 // session
 app.use(session({
     store:MongoStore.create({
-        mongoUrl: 'mongodb+srv://nicolasatencio90:Tengounperro_4patas@cluster0.u5bihkz.mongodb.net/ecommerce?retryWrites=true&w=majority'
+        mongoUrl: config.mongo_uri
     }),
     secret: 'secretSession',
     cookie: {maxAge:60000}
 }));
+
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 app.use('/api/products', productsRouter);
@@ -44,8 +52,9 @@ app.use('/', viewsRouter)
 app.use('/api/chats', chatRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/session', sessionRouter)
 
-const PORT = 8080;
+const PORT = config.port;
 
 const httpServer = app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}...`)
