@@ -1,63 +1,40 @@
-import { cartModel } from "../models/carts.model.js";
+import { cartModel } from "../../../MongoDB/models/carts.model.js";
 import BasicManager from "./BasicManager.mongo.js";
 
 class CartManager extends BasicManager {
     constructor(){
         super(cartModel,'products.product')
     }
-    async getCarts(){
-        try{
-            const carts = await cartModel.find({});
-            return carts;
-        } catch(error){
-            return error;
-        }
-    };
-
-    async getCartById (id){
-        try {
-            const cart = await cartModel.findById(id).populate('products.product');
-            return cart;
-        } catch (error) {
-            return error;
-        }
-    }
-
-    async createCart(){
-        try {
-            const newCart = await cartModel.create({products:[]});
-            return newCart;
-        } catch (error) {
-            return error;
-        }
-    }
-
-    async insertProduct(cid,pid){
+    async insertProductOrIncreaseQuantity(cid,pid){
         try {
             const cart = await cartModel.findById(cid);
             const array = cart.products;
             const index = array.findIndex(p => p.product == pid);
             if(index === -1){
                 array.push({product:pid,quantity:1})
-                cart.save();
+                await cart.save();
             }else{
                 array[index].quantity++;
-                cart.save();
+                await cart.save();
             }       
-            return array;
+            // return array;
+            const result = await cartModel.findById(cid).populate('products.product');
+            return result;
         } catch (error) {
             return error
         }
     };
+    // Lo que hace es insertar un producto en el carro en caso de que no exista el producto en el carro o le aumenta uno mas a la cantidad
+    // en caso de que si exista.
 
-    async deleteCart(id){
-        try {
-            const deleteCart = await cartModel.findByIdAndDelete(id);
-            return deleteCart;
-        } catch (error) {
-            return error
-        }
-    }
+    // async deleteCart(id){
+    //     try {
+    //         const deleteCart = await cartModel.findByIdAndDelete(id);
+    //         return deleteCart;
+    //     } catch (error) {
+    //         return error
+    //     }
+    // }
 
     async deleteProduct(cid,pid){
         try {
@@ -66,9 +43,10 @@ class CartManager extends BasicManager {
             const index = array.findIndex(p => p.product == pid);
             if(index >= 0){
                 array.splice(index,1);
-                cart.save();
+                await cart.save();
+                return await cartModel.findById(cid).populate('products.product')
             }else{
-                return `No existe producto con el id ${pid}`
+                return `In the cart, a product with id ${pid} is not found.`
             }
         } catch (error) {
             
@@ -80,7 +58,7 @@ class CartManager extends BasicManager {
             const cart = await cartModel.findById(id);
             const array = cart.products;
             array.splice(0,array.length);
-            cart.save();
+            await cart.save();
             return cart
         } catch (error) {
             return error
@@ -96,7 +74,8 @@ class CartManager extends BasicManager {
             if(index >= 0){
                 array[index].quantity = +quantity;
                 cart.save();
-                return array[index]
+                const modifyCart = await cartModel.findById(cid).populate('products.product')
+                return modifyCart.products[index]
             }else{
                 return 'No existe el producto en el carro seleccionado'
             }
@@ -104,6 +83,7 @@ class CartManager extends BasicManager {
             return error
         }
     }
+
 }
 
 export const cartManager = new CartManager();

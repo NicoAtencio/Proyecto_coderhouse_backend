@@ -1,4 +1,4 @@
-import { passportManager } from "../dao/managers/PassportManager.mongo.js";
+import { passportManager } from "../DAL/DAOs/MongoDAOs/managers/PassportManager.mongo.js";
 import { compareData } from "../utils.js";
 
 export const user = async (username,password) => {

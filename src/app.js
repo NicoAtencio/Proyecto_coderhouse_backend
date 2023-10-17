@@ -9,7 +9,7 @@ import sessionRouter from "./routes/session.router.js"
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import { __dirname } from "./utils.js";
-import './dao/dbConfig.js';
+import './DAL/MongoDB/dbConfig.js';
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -37,7 +37,8 @@ app.use(session({
         mongoUrl: config.mongo_uri
     }),
     secret: 'secretSession',
-    cookie: {maxAge:60000}
+    cookie: {maxAge:3600000}
+    // La sesion expira a la hora.
 }));
 
 

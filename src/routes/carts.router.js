@@ -1,45 +1,19 @@
 import { Router } from "express";
-// import carts from "../managers/CartsManager.js";
-import { cartManager } from "../dao/managers/CartManager.mongo.js";
+import { getCarts, getById,createCart,updateCart,deleteAProduct, emptyCart, modifyQuantity,processPurchase } from "../controllers/carts.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 
-router.get('/', async (req,res) => {
-    try {
-        const carts = await cartManager.getCarts();
-        res.status(200).json({message: 'carts', carts});
-    } catch (error) {
-        res.status(500).json({error});
-    }
-})
+router.get('/', getCarts)
 
-router.get('/:cid', async (req,res) => {
-    const {cid} = req.params;
-    try {
-        const cart = await cartManager.getCartById(cid);
-        res.status(200).json(cart)
-    } catch (error) {
-        res.status(500).json({error});
-    }
-});
+router.get('/:cid', getById);
 
-router.post('/', async (req,res) => {
-    try {
-        const newCart = await cartManager.createCart();
-        res.status(200).json({message:'Create cart', newCart});
-    } catch (error) {
-        res.status(500).json({error})
-    }
-});
+router.post('/', createCart);
 // Crea un nuevo carro
 
-router.put('/:cid/product/:pid', async (req,res) => {
-    const { cid, pid } = req.params;
-    const insertProduct = await cartManager.insertProduct(cid,pid);
-    res.send(insertProduct);
-});
-// Agrega un producto que no pertenecia al carro en el carro.
+router.put('/:cid/product/:pid',authMiddleware('user'), updateCart);
+// Agrega un producto que no pertenecia al carro en el carro o incrementarlo en uno en caso de que ya pertenesca al carro.
 
 // router.delete('/:cid', async (req,res) => {
 //     const {cid} = req.params;
@@ -50,43 +24,19 @@ router.put('/:cid/product/:pid', async (req,res) => {
 //         res.status(500).json({error})
 //     }
 // });
-// Elimina todo un carro lo comente porque en la entrega esta ruta es para eliminar los productos del carro no para eliminar el carro.
+// Elimina por completo un carro lo comente porque en la entrega esta ruta es para eliminar los productos del carro no para eliminar el carro.
 
 
-router.delete('/:cid/product/:pid', async (req,res) => {
-    const {cid,pid} = req.params;
-    try{
-        await cartManager.deleteProduct(cid,pid);
-        const cart = await cartManager.getCartById(cid);
-        res.status(200).json(cart);
-    } catch(error) {
-        res.status(500).json({error})
-    }
-});
+router.delete('/:cid/product/:pid',authMiddleware('user'), deleteAProduct);
 // Elimina un producto de un carro
 
-router.delete('/:cid', async (req,res) => {
-    const {cid} = req.params;
-    try {
-        const cart = await cartManager.deleteProducts(cid);
-        res.status(200).json(cart)
-    } catch (error) {
-        res.status(500).json({error})
-    }
-});
+router.delete('/:cid',authMiddleware('user'), emptyCart);
 // Hace que si una carro especifico tenga productos dentro de su arreglo, el arreglo se vacie.
 
-router.put('/:cid/product/:pid', async (req,res) => {
-    const {quantity} = req.body;
-    const {cid,pid} = req.params;
-    try {
-        const productQuantity = await cartManager.updateQuantity(cid,pid,quantity);
-        res.status(200).json(productQuantity);
-    } catch (error) {
-        res.status(500).json({error})
-    }
-});
+router.put('/quantity/:cid/product/:pid',authMiddleware('user'), modifyQuantity);
 // Modifica la cantidad de un producto dentro de una carro, pasado por body la nueva cantidad.
+
+router.get('/:cid/purchase',authMiddleware('user'), processPurchase)
 
 export default router;
 

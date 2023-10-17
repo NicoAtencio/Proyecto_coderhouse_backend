@@ -1,5 +1,5 @@
 import BasicManager from "./BasicManager.mongo.js";
-import userModel from "../models/users.model.js";
+import userModel from "../../../MongoDB/models/users.model.js";
 
 class PassportManager extends BasicManager {
     constructor(){

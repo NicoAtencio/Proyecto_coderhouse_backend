@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { productsManager } from "../dao/managers/ProductManager.mongo.js"
-import { cartManager } from "../dao/managers/CartManager.mongo.js";
-import { chatManager } from "../dao/managers/chatManager.mongo.js";
+import { productsManager } from "../DAL/DAOs/MongoDAOs/managers/ProductManager.mongo.js"
+import { cartManager } from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js";
+import { chatManager } from "../DAL/DAOs/MongoDAOs/managers/chatManager.mongo.js";
 import socketServer from "../app.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { viewsController } from "../controllers/views.controller.js";
 
 const router = Router();
 
@@ -18,7 +20,7 @@ router.get('/products', async (req,res) => {
     }
 });
 
-router.get('/realtimeproducts', async(req,res) => {
+router.get('/realtimeproducts',authMiddleware('admin'), async(req,res) => {
     const respuesta = await productsManager.getProducts(req.query);
     const products = respuesta.payload.map(product => ({ ...product}));
     res.render('realTimeProducts', {products});
@@ -48,6 +50,15 @@ router.get('/chat', async (req,res) => {
         return error
     }
 });
+
+router.get('/pay', async (req,res) => {
+    try {
+        res.render('confirmPayment',{data:req.cookies.data})
+    } catch (error) {
+        console.log('error al renderizar')
+        res.status(500).json({message:error})
+    }
+})
 
 // login y signup
 

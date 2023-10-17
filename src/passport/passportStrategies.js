@@ -1,5 +1,5 @@
 import passport from "passport";
-import userModel from "../dao/models/users.model.js";
+import userModel from "../DAL/MongoDB/models/users.model.js";
 import {Strategy as GithubStrategy} from "passport-github2";
 import { Strategy as LocalStrategy } from "passport-local";
 import config from "../config.js";

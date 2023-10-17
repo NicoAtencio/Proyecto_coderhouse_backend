@@ -3,7 +3,7 @@ import socketServer from "../app.js";
 
 export const allProducts = async (req,res) => {
     try {
-        const products =  await getProducts(req.query);
+        const products = await getProducts(req.query);
         res.status(200).json(products)
     } catch (error) {
         res.status(500).json({message: error})

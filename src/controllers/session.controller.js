@@ -1,4 +1,4 @@
-import { dateUser } from "../services/session.services.js";
+import { dateUser } from "../services/session/session.services.js";
 
 export const getData = async (req,res) => {
     if(!req.session.passport){

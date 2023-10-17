@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { userManager } from "../dao/managers/UsersManager.js";
-import {compareData} from "../utils.js"
 import passport from "passport";
 import { grantAccess } from "../controllers/login.controller.js";
 

@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { chatManager } from "../dao/managers/chatManager.mongo.js";
+import { chatManager } from "../DAL/DAOs/MongoDAOs/managers/chatManager.mongo.js";
 import socketServer from "../app.js";
+import { createNewChat } from "../controllers/chat.controllers.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.post('/', createNewChat)
 
 router.get('/:cid', async (req,res) => {
     try {
@@ -14,7 +18,7 @@ router.get('/:cid', async (req,res) => {
     }
 })
 
-router.post('/:cid', async (req,res) => {
+router.post('/:cid',authMiddleware('user'), async (req,res) => {
     const {cid} = req.params;
     try {
         const algo =  await chatManager.insertChat(cid,req.body);

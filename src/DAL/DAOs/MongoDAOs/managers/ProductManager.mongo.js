@@ -1,4 +1,4 @@
-import { productModel } from "../models/products.model.js";
+import { productModel } from "../../../MongoDB/models/products.model.js";
 import BasicManager from "./BasicManager.mongo.js";
 
 class ProductManager extends BasicManager {
@@ -27,6 +27,7 @@ class ProductManager extends BasicManager {
             return error
         }
     };
+    
 };
 
 export const productsManager = new ProductManager();
