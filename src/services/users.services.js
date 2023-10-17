@@ -8,9 +8,8 @@ export const newUser = async (obj) => {
         if(isUserAlreadyCreated) return false;
         const hashPassword = await hashData(obj.password);
         const newCart = await cartManager.createOne();
-        console.log(newCart)
+        // Crea un carro nuevo y luego se lo asigna al usuario.
         const response = await userManager.createOne({...obj, password:hashPassword,cart:[newCart._id]});
-        console.log(response)
         return response;
     } catch (error) {
         return error

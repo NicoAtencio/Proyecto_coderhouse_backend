@@ -1,5 +1,6 @@
 import { passportManager } from "../DAL/DAOs/MongoDAOs/managers/PassportManager.mongo.js";
 import { compareData } from "../utils.js";
+import {cartManager} from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js"
 
 export const user = async (username,password) => {
     try {
@@ -25,7 +26,9 @@ export const userGitHub = async (username) => {
 
 export const newUserGitHub = async (obj) => {
     try {
-        const user = await passportManager.createOne(obj);
+        const newCart = await cartManager.createOne();
+        // Crea un carro y luego se lo asigna al usuario.
+        const user = await passportManager.createOne({...obj,cart:newCart});
         return user
     } catch (error) {
         return error

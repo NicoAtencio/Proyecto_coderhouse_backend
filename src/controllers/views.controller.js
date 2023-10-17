@@ -14,8 +14,6 @@ export const products = async (req,res) => {
 
 class ViewsController {
     processPurchaseData (req,res){
-        console.log(req.cookies);
-        console.log('Esta entrando pero no se renderiza')
         res.render('confirmPayment',{data:req.cookies.data})
     }
 };

@@ -35,6 +35,7 @@ class ChatManager extends BasicManager{
             return error;
         }
     }
+
 };
 
 export const chatManager = new ChatManager();

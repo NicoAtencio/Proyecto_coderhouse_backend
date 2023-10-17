@@ -21,19 +21,19 @@ formulario.addEventListener('submit', (e) => {
     formulario.reset();
 });
 
-formularioEliminar.addEventListener('submit', async (e) => {
+formularioEliminar.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = formularioEliminar[0].value;
-    await fetch(`http://localhost:8080/api/products/${id}`,{
+    fetch(`http://localhost:8080/api/products/${id}`,{
         method: "DELETE",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
         },
     })
     .then(res => res.json())
-    .then(res=> nuevosDatos = res)
+    .then(res=> console.log(res))
     .catch(err => console.log(err))
-})
+});
 
 
 const enviarDatos = async (obj) => {
