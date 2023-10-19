@@ -8,35 +8,11 @@ import { viewsController } from "../controllers/views.controller.js";
 
 const router = Router();
 
-router.get('/products', async (req,res) => {
-    const respuesta = await productsManager.getProducts(req.query);
-    const {username} = req.query;
-    const products = respuesta.payload.map(product => ({ ...product}));
-    // Hace un objeto sin prototipo para poder usarlo en la vista products.handlebars
-    if(username){
-        res.render('products', {products,username:{username:username,value:true}});
-    }else{
-        res.render('products', {products});
-    }
-});
+router.get('/products', viewsController.products);
 
-router.get('/realtimeproducts',authMiddleware('admin'), async(req,res) => {
-    const respuesta = await productsManager.getProducts(req.query);
-    const products = respuesta.payload.map(product => ({ ...product}));
-    res.render('realTimeProducts', {products});
-});
+router.get('/realtimeproducts',authMiddleware('admin'), viewsController.realTime);
 
-router.get('/carts/:cid', async (req,res) => {
-    const {cid} = req.params;
-    const respuesta = await cartManager.getCartById(cid);
-    const products = respuesta.products;
-    const nuevo = products.map(p => ({
-        id: p._id,
-        product: p.product.title,
-        quantity: p.quantity}));
-        // Cambiar la vista para que se vea bien
-    res.render('cartId',{nuevo})
-});
+router.get('/carts/:cid', viewsController.getCart);
 
 router.get('/chat', async (req,res) => {
     try {
@@ -51,14 +27,7 @@ router.get('/chat', async (req,res) => {
     }
 });
 
-router.get('/pay', async (req,res) => {
-    try {
-        res.render('confirmPayment',{data:req.cookies.data})
-    } catch (error) {
-        console.log('error al renderizar')
-        res.status(500).json({message:error})
-    }
-})
+router.get('/pay', viewsController.processPurchaseData)
 
 // login y signup
 

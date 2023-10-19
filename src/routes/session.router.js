@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getData } from "../controllers/session.controller.js";
+import { sessionControllers } from "../controllers/session.controller.js";
 
 const router = Router();
 
-router.get('/current', getData)
+router.get('/current', sessionControllers.getData)
 
 export default router;

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { grantAccess } from "../controllers/login.controller.js";
+import {loginController} from "../controllers/login.controller.js"
 
 
 const router = Router();
@@ -9,7 +9,7 @@ const router = Router();
 
 router.post('/' , passport.authenticate('local', {
     failureRedirect: '/login', 
-}), grantAccess);
+}), loginController.grantAccess);
 
 
 export default router;

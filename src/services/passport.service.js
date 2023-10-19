@@ -2,35 +2,40 @@ import { passportManager } from "../DAL/DAOs/MongoDAOs/managers/PassportManager.
 import { compareData } from "../utils.js";
 import {cartManager} from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js"
 
-export const user = async (username,password) => {
-    try {
-        const user = await passportManager.findUserByUsername(username);
-        if(!user) return false; 
-        const isPassword = await compareData(password,user.password);
-        if(!isPassword) return false;
-        return user
-    } catch (error) {
-        return error;
-    }
-};
+class PassportServices {
 
-export const userGitHub = async (username) => {
-    try {
-        const user = await passportManager.findUserByUsername(username);
-        if(!user) return false;
-        return user;
-    } catch (error) {
-        return error;
-    }
-};
+    user = async (username,password) => {
+        try {
+            const user = await passportManager.findUserByUsername(username);
+            if(!user) return false; 
+            const isPassword = await compareData(password,user.password);
+            if(!isPassword) return false;
+            return user
+        } catch (error) {
+            return error;
+        }
+    };
+    
+    userGitHub = async (username) => {
+        try {
+            const user = await passportManager.findUserByUsername(username);
+            if(!user) return false;
+            return user;
+        } catch (error) {
+            return error;
+        }
+    };
+    
+    newUserGitHub = async (obj) => {
+        try {
+            const newCart = await cartManager.createOne();
+            // Crea un carro y luego se lo asigna al usuario.
+            const user = await passportManager.createOne({...obj,cart:newCart});
+            return user
+        } catch (error) {
+            return error
+        }
+    };
+}
 
-export const newUserGitHub = async (obj) => {
-    try {
-        const newCart = await cartManager.createOne();
-        // Crea un carro y luego se lo asigna al usuario.
-        const user = await passportManager.createOne({...obj,cart:newCart});
-        return user
-    } catch (error) {
-        return error
-    }
-};
+export const passportServices = new PassportServices();

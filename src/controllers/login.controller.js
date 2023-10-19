@@ -1,5 +1,10 @@
+class LoginController {
 
-export const grantAccess = (req,res) => {
-    const {username} = req.body;
+  grantAccess (req,res) {
+    const { username } = req.body;
     res.redirect(`/products?username=${username}`);
-}
+  };
+
+};
+
+export const loginController = new LoginController();

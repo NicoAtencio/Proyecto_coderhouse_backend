@@ -1,15 +1,13 @@
 import { Router } from "express";
-// import { userManager } from "../dao/managers/UsersManager.js";
-// import { hashData } from "../utils.js";
 import passport from "passport";
-import { createUser,destroySession,allowAccess } from "../controllers/users.controller.js";
+import { userController } from "../controllers/users.controller.js";
 
 const router = Router();
 
-router.post('/signup', createUser)
+router.post('/signup', userController.createUser)
 
 
-router.get('/logout', destroySession);
+router.get('/logout', userController.destroySession);
 // Al realizar la peticion get destruye la sesion en caso de que exista.
 
 
@@ -18,7 +16,7 @@ router.get('/githubSignup', passport.authenticate('github', { scope: [ 'user:ema
 
 router.get('/github', passport.authenticate('github',{
     failureRedirect: '/login'
-}), allowAccess );
+}), userController.allowAccess );
 
 
 export default router;

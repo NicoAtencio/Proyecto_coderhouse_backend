@@ -3,12 +3,12 @@ import userModel from "../DAL/MongoDB/models/users.model.js";
 import {Strategy as GithubStrategy} from "passport-github2";
 import { Strategy as LocalStrategy } from "passport-local";
 import config from "../config.js";
-import { findUser, findUserGitHub, createUserGitHub } from "../controllers/passport.controller.js";
+import { passportControllers } from "../controllers/passport.controller.js";
 
 passport.use('local', new LocalStrategy(
     async function (username,password,done){
         try {
-            const userDB = await findUser(username, password);
+            const userDB = await passportControllers.findUser(username, password);
             if(!userDB) return done(null,false);
             done(null,userDB);
         } catch (error) {
@@ -25,7 +25,7 @@ passport.use('github',new GithubStrategy({
   },
   async(accessToken, refreshToken, profile, done) => {
     try {
-        const userDB = await findUserGitHub(profile.username);
+        const userDB = await passportControllers.findUserGitHub(profile.username);
         if(userDB){
             return done(null,userDB)
         };
@@ -38,7 +38,7 @@ passport.use('github',new GithubStrategy({
             age: ' ',
             email: profile.emails[0].value
         }
-        const newUser = await createUserGitHub(obj);
+        const newUser = await passportControllers.createUserGitHub(obj);
         done(null,newUser)
     } catch (error) {
         done(error)

@@ -5,7 +5,8 @@ import viewsRouter from "./routes/views.router.js";
 import chatRouter from "./routes/chat.router.js";
 import loginRouter from "./routes/login.router.js";
 import usersRouter from "./routes/users.router.js";
-import sessionRouter from "./routes/session.router.js"
+import sessionRouter from "./routes/session.router.js";
+import mockingRouter from "./routes/mocking.router.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import { __dirname } from "./utils.js";
@@ -16,6 +17,7 @@ import MongoStore from "connect-mongo";
 import "./passport/passportStrategies.js";
 import passport from "passport";
 import  config  from "./config.js";
+import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const app = express();
 
@@ -53,7 +55,11 @@ app.use('/', viewsRouter)
 app.use('/api/chats', chatRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/session', sessionRouter)
+app.use('/api/session', sessionRouter);
+app.use('/api/mocking', mockingRouter);
+
+// Error
+app.use(errorMiddleware);
 
 const PORT = config.port;
 
