@@ -14,34 +14,14 @@ router.get('/realtimeproducts',authMiddleware('admin'), viewsController.realTime
 
 router.get('/carts/:cid', viewsController.getCart);
 
-router.get('/chat', async (req,res) => {
-    try {
-        const respuesta = await chatManager.getMessages('64f0f89bcccc069ea5c3eb38');
-        const message = respuesta.messages.map(r => ({
-            user: r.user,
-            message: r.message
-        }))
-        res.render('chat',{message});
-    } catch (error) {
-        return error
-    }
-});
+router.get('/chat',viewsController.getMessages);
 
 router.get('/pay', viewsController.processPurchaseData)
 
 // login y signup
 
-router.get('/login', (req,res) => {
-    const {username} = req.query;
-    if(username){
-        res.render('login', {username,value:true});
-    }else{
-        res.render('login');
-    }
-});
+router.get('/login', viewsController.login);
 
-router.get('/signup', (req,res) => {
-    res.render('signup');
-})
+router.get('/signup', viewsController.signup)
 
 export default router;

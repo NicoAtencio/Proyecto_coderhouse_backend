@@ -22,12 +22,13 @@ export default class BasicManager{
     };
 
     async createOne(obj){
-        try {
+        // try {
             const response = await this.model.create(obj);
             return response;
-        } catch (error) {
-            return error
-        }
+        // } catch (error) {
+            console.log('Error del manejador base ',error._message)
+            throw new Error(error._message);
+        // }
     };
 
     async deleteOne(id){

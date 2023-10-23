@@ -1,4 +1,4 @@
-export const errorMiddleware = (error,req,res,next) => {
+export const errorMiddleware = (error,req,res) => {
     console.log('Entro al error')
     res.send({
         status: 'Error',

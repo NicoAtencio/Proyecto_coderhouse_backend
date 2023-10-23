@@ -1,5 +1,6 @@
 import { productsManager } from "../DAL/DAOs/MongoDAOs/managers/ProductManager.mongo.js";
 import { cartManager } from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js";
+import { chatManager } from "../DAL/DAOs/MongoDAOs/managers/chatManager.mongo.js";
 
 class ViewsServices {
     
@@ -15,6 +16,15 @@ class ViewsServices {
   getCartById = async (id) => {
     try {
       const response = await cartManager.findById(id);
+      return response;
+    } catch (error) {
+      throw error.message;
+    }
+  }
+
+  findMessages = async (cid) => {
+    try {
+      const response = await chatManager.getMessages(cid);
       return response;
     } catch (error) {
       throw error.message;

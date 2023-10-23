@@ -48,11 +48,38 @@ class ViewsController {
       }));
       // Cambiar la vista para que se vea bien
       res.render("cartId", { nuevo });
-      
     } catch (error) {
-      res.status(500).json({message:error.message})
+      res.status(500).json({ message: error.message });
     }
   };
+
+  getMessages = async (req, res) => {
+    try {
+      const response = await viewsServices.findMessages(
+        "64f0f89bcccc069ea5c3eb38"
+      );
+      const message = response.messages.map((r) => ({
+        user: r.user,
+        message: r.message,
+      }));
+      res.render("chat", { message });
+    } catch (error) {
+      return error;
+    }
+  };
+
+  login = (req, res) => {
+    const { username } = req.query;
+    if (username) {
+      res.render("login", { username, value: true });
+    } else {
+      res.render("login");
+    }
+  };
+
+  signup = (req,res) => {
+    res.render('signup');
+  }
 }
 
 export const viewsController = new ViewsController();

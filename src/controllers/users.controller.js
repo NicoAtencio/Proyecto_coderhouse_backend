@@ -3,7 +3,7 @@ import { errorMessagges } from "../errors/error.enum.js";
 import { userService } from "../services/users.services.js";
 
 class UserController {
-  async createUser(req, res) {
+  async createUser(req, res,next) {
     const { first_name, last_name, user_name, email, age, password } = req.body;
     if (
       !first_name ||
@@ -13,7 +13,8 @@ class UserController {
       !age ||
       !password
     ) {
-      return res.redirect("/signup");
+      // throw new CustomError (errorMessagges.USER_NOT_CREATED);
+      // return res.redirect("/signup");
     }
     try {
       const user = await userService.newUser(req.body);
@@ -23,7 +24,10 @@ class UserController {
       // Si no se crea con exito es porque ya existe un usuario con dicho username
       res.redirect(`/login?username=${user_name}`);
     } catch (error) {
-      CustomError.createError(errorMessagges.USER_NOT_CREATED);
+      next(error);
+      // console.log('Error des controlador: ', error);
+      // CustomError.createError(errorMessagges.USER_NOT_CREATED);
+      // throw new CustomError(errorMessagges.USER_NOT_CREATED)
     }
   }
 
