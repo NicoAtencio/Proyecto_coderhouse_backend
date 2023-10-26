@@ -1,4 +1,6 @@
 import { sessionServices } from "../services/session/session.services.js";
+import CustomError from "../errors/CustomError.js";
+import { errorMessagges } from "../errors/error.enum.js";
 
 class SessionControllers {
   getData = async (req, res) => {
@@ -10,7 +12,7 @@ class SessionControllers {
       const data = await sessionServices.dateUser(req.session.passport.user);
       res.status(200).send(data);
     } catch (error) {
-      res.status(500).json({ message: error });
+      CustomError(errorMessagges);
     }
   };
 

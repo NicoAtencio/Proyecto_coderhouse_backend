@@ -1,6 +1,7 @@
 import { productsServices } from "../services/products.service.js";
 import socketServer from "../app.js";
-
+import CustomError from "../errors/CustomError.js";
+import { errorMessagges } from "../errors/error.enum.js";
 class ProductsController {
     
     async allProducts (req,res){
@@ -19,7 +20,7 @@ class ProductsController {
             if(!product) return res.status(400).json({mesagge: `There is no product with ID ${pid}`});
             res.status(200).json({product})
         } catch (error) {
-            res.status(500).json({message:error})
+            CustomError.createError(errorMessagges.PRODUCT_NOT_FOUND);
         }
     };
 
@@ -31,7 +32,7 @@ class ProductsController {
             socketServer.emit('datos', products);
             res.status(200).json({message: 'Create product',product});
         } catch (error) {
-            res.status(500).json({mesagge: error})
+            CustomError.createError(errorMessagges.PRODUCT_NOT_CREATED);
         }
     };
 

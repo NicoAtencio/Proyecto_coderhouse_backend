@@ -1,4 +1,6 @@
 import { cartServices } from "../services/carts.service.js";
+import CustomError from "../errors/CustomError.js";
+import { errorMessagges } from "../errors/error.enum.js";
 
 class CartsControllers {
   async getCarts(req, res) {
@@ -36,7 +38,7 @@ class CartsControllers {
       const cart = await cartServices.addOrIncrement(cid, pid);
       res.status(200).json({ message: "Cart modified", cart });
     } catch (error) {
-      res.status(500).json({ message: error });
+      CustomError.createError(errorMessagges.PRODUCT_NOT_ADDED_TO_THE_CART);
     }
   }
 

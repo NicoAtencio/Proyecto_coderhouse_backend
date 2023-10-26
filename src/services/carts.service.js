@@ -10,7 +10,7 @@ class CartServices {
             const result = await cartManager.findAll()
             return result
         } catch (error) {
-            return error
+            throw error
         }
     };
 
@@ -19,7 +19,7 @@ class CartServices {
             const result =  await cartManager.findById(id);
             return result;
         } catch (error) {
-            return error
+            throw error
         }
     };
     
@@ -28,7 +28,7 @@ class CartServices {
             const result = await cartManager.createOne();
             return result ;
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -37,7 +37,7 @@ class CartServices {
             const result = await cartManager.insertProductOrIncreaseQuantity(cid,pid);
             return result;
         } catch (error) {
-            return error
+            throw error
         }
     };
 
@@ -46,7 +46,7 @@ class CartServices {
             const result = cartManager.deleteProduct(cid,pid);
             return result;
         } catch (error) {
-            return error
+            throw error
         }
     };
 
@@ -55,7 +55,7 @@ class CartServices {
             const cart = await cartManager.deleteProducts(cid);
             return cart
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -64,7 +64,7 @@ class CartServices {
             const productQuantity = await cartManager.updateQuantity(cid,pid,quantity);
             return productQuantity;
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -97,7 +97,7 @@ class CartServices {
             }
             return dataProducts;
         } catch (error) {
-            return error
+            throw error
         };
     
     };

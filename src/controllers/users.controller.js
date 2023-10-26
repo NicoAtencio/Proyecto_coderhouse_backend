@@ -13,8 +13,7 @@ class UserController {
       !age ||
       !password
     ) {
-      // throw new CustomError (errorMessagges.USER_NOT_CREATED);
-      // return res.redirect("/signup");
+      return res.redirect("/signup");
     }
     try {
       const user = await userService.newUser(req.body);
@@ -23,11 +22,8 @@ class UserController {
       }
       // Si no se crea con exito es porque ya existe un usuario con dicho username
       res.redirect(`/login?username=${user_name}`);
-    } catch (error) {
-      next(error);
-      // console.log('Error des controlador: ', error);
-      // CustomError.createError(errorMessagges.USER_NOT_CREATED);
-      // throw new CustomError(errorMessagges.USER_NOT_CREATED)
+    } catch (error) {;
+      CustomError.createError(errorMessagges.USER_NOT_CREATED);
     }
   }
 

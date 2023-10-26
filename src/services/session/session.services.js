@@ -10,7 +10,7 @@ class SessionServices{
             const response = user.getData();
             return response;
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 

@@ -11,8 +11,7 @@ class UserManager extends BasicManager {
             const user = await userModel.findOne({user_name:username});
             return user;
         } catch (error) {
-            console.log('El error es:', error)
-            return error;
+            throw error;
         }
     };
 };

@@ -5,25 +5,23 @@ import { cartManager } from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js
 
 class UserService {
   async newUser(obj) {
-    // try {
+    try {
       const isUserAlreadyCreated = await userManager.findUserByUsername(
         obj.user_name
       );
       if (isUserAlreadyCreated) return false;
-      // const hashPassword = await hashData(obj.password);
-      // const newCart = await cartManager.createOne();
+      const hashPassword = await hashData(obj.password);
+      const newCart = await cartManager.createOne();
       // Crea un carro nuevo y luego se lo asigna al usuario.
-      // const response = await userManager.createOne({
-      //   ...obj,
-      //   password: hashPassword,
-      //   cart: [newCart._id],
-      // });
-      const response = await userManager.createOne({});
+      const response = await userManager.createOne({
+        ...obj,
+        password: hashPassword,
+        cart: [newCart._id],
+      });
       return response;
-    // } catch (error) {
-      // console.log('Error del servicio', error)
-      // throw error;
-    // }
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

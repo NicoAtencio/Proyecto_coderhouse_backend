@@ -6,7 +6,7 @@ class ProductsServices{
         try {
             return await productsManager.getProducts(query);
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -15,7 +15,7 @@ class ProductsServices{
             const product = await productsManager.findById(id);
             return product
         } catch (error) {
-            return error
+            throw error
         }
     };
 
@@ -23,7 +23,7 @@ class ProductsServices{
         try {
             return await productsManager.createOne(obj)
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -31,7 +31,7 @@ class ProductsServices{
         try {
             return await productsManager.updateOne(id,obj);
         } catch (error) {
-            return error;
+            throw error;
         }
     };
 
@@ -39,7 +39,7 @@ class ProductsServices{
         try {
             return await productsManager.deleteOne(id)
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 };

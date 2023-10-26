@@ -24,7 +24,7 @@ class ProductManager extends BasicManager {
             };
             return info;
         } catch (error) {
-            return error
+            throw error
         }
     };
     
