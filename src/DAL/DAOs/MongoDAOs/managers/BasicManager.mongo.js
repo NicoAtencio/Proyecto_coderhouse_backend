@@ -41,7 +41,8 @@ export default class BasicManager{
 
     async updateOne(id,obj){
         try {
-            const response = await this.model.findByIdAndUpdate(id,obj);
+            const response = await this.model.findByIdAndUpdate(id,obj,{new:true});
+            // Al agregarle new:true retorna el documento modificado.
             return response
         } catch (error) {
             throw error;

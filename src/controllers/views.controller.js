@@ -79,6 +79,10 @@ class ViewsController {
 
   signup = (req,res) => {
     res.render('signup');
+  };
+
+  resetPassword = (req,res) => {
+    res.render('resetPassword')
   }
 }
 

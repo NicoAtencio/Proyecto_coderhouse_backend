@@ -10,7 +10,7 @@ const router = Router();
 
 router.get('/products', viewsController.products);
 
-router.get('/realtimeproducts',authMiddleware('admin'), viewsController.realTime);
+router.get('/realtimeproducts',authMiddleware(['admin','premium']), viewsController.realTime);
 
 router.get('/carts/:cid', viewsController.getCart);
 
@@ -22,6 +22,8 @@ router.get('/pay', viewsController.processPurchaseData)
 
 router.get('/login', viewsController.login);
 
-router.get('/signup', viewsController.signup)
+router.get('/signup', viewsController.signup);
+
+router.get('/resetpassword', viewsController.resetPassword)
 
 export default router;

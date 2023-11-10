@@ -7,7 +7,8 @@ import loginRouter from "./routes/login.router.js";
 import usersRouter from "./routes/users.router.js";
 import sessionRouter from "./routes/session.router.js";
 import mockingRouter from "./routes/mocking.router.js";
-import loggerRouter from "./routes/logger.router.js"
+import loggerRouter from "./routes/logger.router.js";
+import messageRouter from "./routes/messages.router.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import { __dirname } from "./utils.js";
@@ -58,7 +59,8 @@ app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/mocking', mockingRouter);
-app.use('/api/loggertest', loggerRouter)
+app.use('/api/loggertest', loggerRouter);
+app.use('/api/messages', messageRouter);
 
 // Error
 app.use(errorMiddleware);
