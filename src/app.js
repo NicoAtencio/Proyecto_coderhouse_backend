@@ -20,12 +20,30 @@ import "./passport/passportStrategies.js";
 import passport from "passport";
 import  config  from "./config.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import { logger } from "./winston/winston.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname+'/public'));
+
+// Documentacion
+const swaggerOptions = {
+    definition:{
+        openapi:"3.0.1",
+        info:{
+            title:"Documentacion de api",
+            description: "Documentacion del proyecto servidor de un e-commers."
+        }
+    },
+    apis:[__dirname+'/docs/**/*.yaml']
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
 
 // HANDLEBARS
 app.engine('handlebars', handlebars.engine());
@@ -68,13 +86,13 @@ app.use(errorMiddleware);
 const PORT = config.port;
 
 const httpServer = app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}...`)
+    logger.info(`Servidor escuchando en el puerto ${PORT}...`)
 });
 
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
-    console.log(`Usuario ${socket.id} conectado`);
+    logger.info(`Usuario ${socket.id} conectado`);
 })
 
 export default socketServer;

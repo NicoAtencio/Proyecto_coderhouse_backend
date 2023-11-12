@@ -1,0 +1,188 @@
+paths:
+  /api/carts:
+    get:
+      summary: Muestra todos los carros creados
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se pudieron obtener con exito todos los carros de la base de datos.
+        "500":
+          description: Error interno
+    
+    post:
+      summary: Crea un nuevo carro
+      tags:
+        - Carts
+      responses: 
+        "200":
+          description: Se agrego un nuevo carro a la base de datos.
+        "500":
+          description: Error interno
+  
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene el carro con el id especificado
+      tags: 
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carro que queremos obtener
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se obtuvo con exito el carro buscado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Carts' 
+        "500":
+          description: Error interno
+          
+    delete: 
+      summary: Elimina todos los productos del carro que seleccionemos con su id
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carro que queremos obtener
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se eliminaron del carro todos los productos
+        "500":
+          description: Error interno
+
+  /api/carts/{cid}/product/{pid}:
+    put:
+      summary: Agrega el producto especificado al carro especificado a travez del id de cada uno. En caso de que ya se encuentre el producto en el carro le aumenta en uno la cantidad
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carro
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: id del producto
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto fue agregado con exito al carro o aumentado su cantidad en uno
+        "500":
+          description: Error interno
+
+    delete:
+      summary: Elimina de un carro especificado un producto especificado
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carro
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: id del producto
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Producto eliminado con exito del carro
+        "500":
+          description: Error interno
+
+  api/carts/quantity/:cid/product/:pid:
+    put:
+      summary: Modificar la cantidad de un producto en un carro
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: id del carro
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: id del producto
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateCart'
+      responses:
+        "200":
+          description: Se modifico correctamente la cantidad del producto seleccionado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Carts' 
+        "500":
+          description: Error interno
+
+  api/carts/:cid/purchase:
+    get:
+      summary: Realiza la compra de los productos que se encuentren en el carro asociado con el usuario
+      tags:
+        - Carts
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: cid
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se ha realizado con exito la compra
+        "500":
+          description: Error interno
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        _id: 
+          type: ObjectId
+          decription: id generado por la base de datos
+        products:
+          type: Array
+          description: Es un array de objetos, donde en cada objeto se guarda el id de un producto y la cantidad que se desea de ese producto
+      example:
+        _id: ObjectId("#jkl53lafkla54sakl")
+        products: [{product: ObjectId("adhk4324hk"), quantity: 3}]
+
+  
+  requestBodies:
+    updateCart:
+      type: object
+      properties:
+        quantity: Number
+        description: Cantidad que queremos de ese producto
+      example: 
+        quantity: 10

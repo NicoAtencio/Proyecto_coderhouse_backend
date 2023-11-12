@@ -1,9 +1,41 @@
-<form action="/api/users/signup" method="post">
-    First Name: <input type="text" name="first_name" id="first_name">
-    Last name: <input type="text" name="last_name" id="last_name">
-    Username: <input type="text" name="user_name" id="username">
-    Password: <input type="password" name="password" id="password">
-    Age: <input type="text" name="age" id="age">
-    Email: <input type="email" name="email" id="email">
-    <input type="submit" value="signup">
-</form>
+<header>
+    <link rel="stylesheet" href="/estilos/signup.css">
+</header>
+<div class="container">
+    <form action="/api/users/signup" method="post">
+        {{!-- First Name: <input type="text" name="first_name" id="first_name">
+        Last name: <input type="text" name="last_name" id="last_name">
+        Username: <input type="text" name="user_name" id="username">
+        Password: <input type="password" name="password" id="password">
+        Age: <input type="text" name="age" id="age">
+        Email: <input type="email" name="email" id="email">
+        <input type="submit" value="signup"> --}}
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First name</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" aria-describedby="emailHelp" required="">
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last name</label>
+            <input type="text" class="form-control" name="last_name" id="last_name" aria-describedby="emailHelp" required="">
+        </div>
+        <div class="mb-3">
+            <label for="user_name" class="form-label">Username</label>
+            <input type="text" class="form-control" name="user_name" id="user_name" aria-describedby="emailHelp" required="">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required="">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input type="number" class="form-control" name="age" id="age" aria-describedby="emailHelp" required="">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required="">
+        </div>
+        <div class="submit">
+            <button type="submit" class="btn btn-info submit__btn">Signup</button>
+        </div>
+    </form>
+</div>

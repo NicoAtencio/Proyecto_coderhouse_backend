@@ -1,0 +1,16 @@
+.username{
+    width: 150px;
+}
+
+.login{
+    margin-top: 20px;
+}
+
+.btn-info{
+    margin-top: 20px;
+    color: #000;
+}
+
+.btn-info:hover{
+    color: #fff;
+}

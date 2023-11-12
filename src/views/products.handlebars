@@ -1,8 +1,10 @@
-{{#if username.value}}
+<div class="container">
+
+    {{#if username.value}}
     <h2>Hola {{username.username}} estos son los productos disponibles</h2>
-{{/if}}
-<div class="container contenedor"> 
-     <div class="row">
+    {{/if}}
+    <div class="container contenedor">
+        <div class="row">
             {{!-- <div class="col col__principal">
                 ID
             </div> --}}
@@ -22,32 +24,33 @@
                 Modificar
             </div>
         </div>
-    {{#each products}}
+        {{#each products}}
         <div class="row">
             {{!-- <div class="col">{{this._doc._id}}</div> --}}
             <div class="col">{{this._doc.title}}</div>
             <div class="col">{{this._doc.description}}</div>
-            <div class="col">{{this._doc.price}}</div>
+            <div class="col">${{this._doc.price}}</div>
             <div class="col">{{this._doc.category}}</div>
             <div class="col">
                 <button type="button" class="restar" id={{this._doc._id}}>-</button>
                 <button type="button" class="agregar" id={{this._doc._id}}>+</button>
             </div>
         </div>
-    {{/each}}
+        {{/each}}
+    </div>
+
+    <form id="pay">
+        <input type="submit" value="Comprar">
+    </form>
+
+    <form action="/api/messages" method="get">
+        <input type="submit" value="Restaurar contraseña">
+    </form>
+
+    <form action="/api/users/logout" method="get">
+        <input type="submit" value="Cerrar sesion">
+    </form>
 </div>
-
-<form id="pay">
-    <input type="submit" value="Comprar">
-</form>
-
-<form action="/api/messages" method="get">
-    <input type="submit" value="Restaurar contraseña">
-</form>
-
-<form action="/api/users/logout" method="get">
-    <input type="submit" value="Cerrar sesion">
-</form>
 {{!-- Destruye la sesion al hacer click --}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/products.js"></script>

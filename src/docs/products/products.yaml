@@ -1,0 +1,230 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos que han sido creados. Se le puede pasar por query la cantidad de productos que queremos visualizar.
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron obtenidos satifactoriamente en la base de datos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        "500":
+          description: Error interno.
+  
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/newProduct'
+      responses: 
+        "200":
+          description: Se creó correctamente el producto
+        "400":
+          description: No estas autorizado a crear un producto
+        "500":
+          description: Error interno
+
+  /api/products/{pid}:
+    get:
+      summary: 'Obtiene el producto con el id que ingresemos'
+      tags: 
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id del producto que desea solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se encontro el producto en la base de datos
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#components/schemas/Products'
+    
+    put:
+      summary: Modifica el producto del id que le especifiquemos
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id del producto a modificar
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateProduct'
+      responses:
+        "200":
+          description: Se modifico correctamente el producto
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        "400":
+          description: No estas autorizado a acceder a esta funcionalidad de la app
+        "500":
+          description: Error interno
+    
+    delete:
+      summary: Elimina el producto que le especifiquemos por id
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id del producto a eliminar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: La eliminacion del producto a sido exitosa
+        "400":
+          description: No estas autorizado a eliminar el producto
+        "500":
+          description: Error interno
+
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado por la base de datos
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo numerico del producto. Debe ser unico.
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        stock: 
+          type: Number
+          description: Cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria a la cual pertece el producto
+        owner:
+          type: ObjectId
+          description: Id del usuario premium que creó el producto. Por defecto el valor es admin
+        thumbnails:
+          type: String
+          description: URL de la imagen del producto. No es obligatoria
+      example:
+        _id: ObjectId("4532fds342ghj2543hjk")
+        title: Televisor
+        description: Televisor smart 50in
+        code: 324
+        price: 200
+        status: true
+        stock: 60
+        category: electronica
+        owner: ObjectID("kl34jkl23jb432b3n42k32")
+
+  requestBodies: 
+    updateProduct: 
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo numerico del producto. Debe ser unico.
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        stock: 
+          type: Number
+          description: Cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria a la cual pertece el producto
+        owner:
+          type: ObjectId
+          description: Id del usuario premium que creó el producto. Por defecto el valor es admin
+        thumbnails:
+          type: String
+          description: URL de la imagen del producto. No es obligatoria
+      example:
+        description: Televisor smart 70in
+        price: 250
+        stock: 20
+
+    newProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo numerico del producto. Debe ser unico.
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        stock: 
+          type: Number
+          description: Cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria a la cual pertece el producto
+        owner:
+          type: ObjectId
+          description: Id del usuario premium que creó el producto. Por defecto el valor es admin
+        thumbnails:
+          type: String
+          description: URL de la imagen del producto. No es obligatoria
+      example:
+        title: Nuevo producto
+        description: Nuevo producto insertado en la lista
+        code: 098
+        price: 76
+        status: true
+        stock: 90
+        category: Seleccionar categoria
+        owner: ObjectID("kl34jkl23jb432b3n42k32")
+
