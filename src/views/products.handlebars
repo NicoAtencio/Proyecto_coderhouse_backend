@@ -1,44 +1,36 @@
-<div class="container">
+<header>
+    <link rel="stylesheet" href="/estilos/products.css">
+</header>
+<div class="container contenedor_productos px-4">
 
     {{#if username.value}}
     <h2>Hola {{username.username}} estos son los productos disponibles</h2>
     {{/if}}
-    <div class="container contenedor">
-        <div class="row">
-            {{!-- <div class="col col__principal">
-                ID
-            </div> --}}
-            <div class="col col__principal">
-                Product
+    {{!-- <div class="container contenedor_productos"> --}}
+        <div class="row g-2">
+            {{#each products}}
+            <div class="col-6 col-sm-4 col-md-3 contenedor__producto">
+                <div class="producto border bg-light">
+                    {{#if this._doc.thumbnails}}
+                    <img src="/images/{{this._doc.thumbnails}}" alt="imagen sin producto" class="producto__sin-imagen">
+                    {{else}}
+                    <img src="/images/sin_producto.png" alt="imagen sin producto" class="producto__sin-imagen">
+                    {{/if}}
+                    <div class="produto__nombre">
+                        <p>{{this._doc.title}}</p>
+                    </div>
+                    <div class="producto__precio">
+                        <p>${{this._doc.price}}</p>
+                    </div>
+                    <div>
+                        <button type="button" class="restar" id={{this._doc._id}}>-</button>
+                        <button type="button" class="agregar" id={{this._doc._id}}>+</button>
+                    </div>
+                </div>
             </div>
-            <div class="col col__principal">
-                Description
-            </div>
-            <div class="col col__principal">
-                Price
-            </div>
-            <div class="col col__principal">
-                Category
-            </div>
-            <div class="col col__principal">
-                Modificar
-            </div>
+            {{/each}}
         </div>
-        {{#each products}}
-        <div class="row">
-            {{!-- <div class="col">{{this._doc._id}}</div> --}}
-            <div class="col">{{this._doc.title}}</div>
-            <div class="col">{{this._doc.description}}</div>
-            <div class="col">${{this._doc.price}}</div>
-            <div class="col">{{this._doc.category}}</div>
-            <div class="col">
-                <button type="button" class="restar" id={{this._doc._id}}>-</button>
-                <button type="button" class="agregar" id={{this._doc._id}}>+</button>
-            </div>
-        </div>
-        {{/each}}
     </div>
-
     <form id="pay">
         <input type="submit" value="Comprar">
     </form>
@@ -50,6 +42,7 @@
     <form action="/api/users/logout" method="get">
         <input type="submit" value="Cerrar sesion">
     </form>
+
 </div>
 {{!-- Destruye la sesion al hacer click --}}
 <script src="/socket.io/socket.io.js"></script>

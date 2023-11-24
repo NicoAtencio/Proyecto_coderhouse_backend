@@ -14,7 +14,7 @@ formulario.addEventListener('submit', (e) => {
         status: formulario[4].value,
         stock: parseInt(formulario[5].value),
         category: formulario[6].value,
-        thumbnails: imagen
+        thumbnails: formulario[7].value
     };
     e.preventDefault();
     enviarDatos(newProduct);

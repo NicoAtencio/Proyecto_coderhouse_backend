@@ -13,7 +13,6 @@ fetch(`http://localhost:8080/api/session/current`,{
 .then((res) => res.json())
 .then((respuesta) => {
     idCart = respuesta.cart._id;
-    console.log(idCart)
 })
 .catch(err => console.log(err))
 // El proposito es obtener el identificador del carro del cliente y asi modificarlo

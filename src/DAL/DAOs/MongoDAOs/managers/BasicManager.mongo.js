@@ -6,6 +6,7 @@ export default class BasicManager{
     async findAll(){
         try {
             const response = await this.model.find().populate(this.populateProp);
+            // const response = await this.model.find()
             return response;
         } catch (error) {
             throw error;

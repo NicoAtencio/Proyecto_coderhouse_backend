@@ -34,7 +34,6 @@ const productsSchema = new mongoose.Schema({
     owner:{
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        default: 'admin'
     },
     thumbnails: {
         type: String

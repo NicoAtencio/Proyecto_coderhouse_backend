@@ -23,11 +23,17 @@ class ProductsServices{
     async newProduct (obj) {
         try {
             const user = await sessionManager.findById(obj.id);
+            if(obj.product.thumbnails){
+                const pathImagen = obj.product.thumbnails.split("\\")
+                return await productsManager.createOne({...obj.product, owner: obj.id, thumbnails:pathImagen[2]})
+            }
             if(user.role === 'premium'){
                 return await productsManager.createOne({...obj.product, owner: obj.id})
             }
-            return await productsManager.createOne(obj);
+            const newProduct = await productsManager.createOne({...obj.product, owner: obj.id});
+            return newProduct
         } catch (error) {
+            console.log(error)
             throw error;
         }
     };

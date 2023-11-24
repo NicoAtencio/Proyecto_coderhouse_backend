@@ -21,11 +21,13 @@ class ProductsController {
             res.status(200).json({product})
         } catch (error) {
             CustomError.createError(errorMessagges.PRODUCT_NOT_FOUND);
+        //     res.status(500).json({message:error})
         }
     };
 
     async createNewProduct (req,res) {
         try {
+            console.log('body',req.body)
             const product = await productsServices.newProduct({product:req.body,id:req.session.passport.user});
             // Se envia un objeto con las propiedades del nuevo producto y ademas el id del usuario que lo creó.
             const response = await productsServices.getProducts({limit:200});
@@ -33,7 +35,8 @@ class ProductsController {
             socketServer.emit('datos', products);
             res.status(200).json({message: 'Create product',product});
         } catch (error) {
-            CustomError.createError(errorMessagges.PRODUCT_NOT_CREATED);
+            // CustomError.createError(errorMessagges.PRODUCT_NOT_CREATED);
+            res.status(500).json({message:error})
         }
     };
 

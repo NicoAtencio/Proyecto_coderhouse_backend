@@ -21,7 +21,8 @@ class UserController {
         return res.status(400).json({ message: "Username not valid" });
       }
       // Si no se crea con exito es porque ya existe un usuario con dicho username
-      res.redirect(`/login?username=${user_name}`);
+      return res.status(200).json({message: 'User created', user});
+      // res.redirect(`/login?username=${user_name}`);
     } catch (error) {;
       CustomError.createError(errorMessagges.USER_NOT_CREATED);
     }
