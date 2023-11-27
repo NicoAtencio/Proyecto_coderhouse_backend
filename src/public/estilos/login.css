@@ -14,3 +14,11 @@
 .btn-info:hover{
     color: #fff;
 }
+
+.cargar{
+    margin-top: 4px;
+}
+
+.ocultar{
+    display: none;
+}

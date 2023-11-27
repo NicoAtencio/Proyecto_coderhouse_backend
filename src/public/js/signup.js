@@ -1,8 +1,8 @@
 console.log('Hola desde JS');
 
 
-const formulario = document.getElementById('formulario');
-// console.log(formulario);
+const formulario = document.querySelector('.formulario');
+console.log(formulario);
 
 formulario.addEventListener('submit',(e) => {
     e.preventDefault();

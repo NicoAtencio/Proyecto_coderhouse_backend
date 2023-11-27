@@ -73,7 +73,7 @@ class CartManager extends BasicManager {
             const index = array.findIndex(p => p.product == pid);
             if(index >= 0){
                 array[index].quantity = +quantity;
-                cart.save();
+                await cart.save();
                 const modifyCart = await cartModel.findById(cid).populate('products.product')
                 return modifyCart.products[index]
             }else{
@@ -84,7 +84,29 @@ class CartManager extends BasicManager {
         }
     }
 
-}
+    async subtractProduct(cid,pid) {
+        try {
+            const cart = await cartModel.findById(cid);
+            const array = cart.products;
+            const index = array.findIndex(p => p.product == pid);
+            if(index >= 0){
+                array[index].quantity--;
+                if(array[index].quantity == 0){
+                    await cartManager.deleteProduct(cid,pid);
+                    return ['Producto eliminado'];
+                    // Se envia como un array para saber que mensaje de toastify mostrar.  
+                }
+                await cart.save();
+                const modifyCart = await cartModel.findById(cid).populate('products.product')
+                return modifyCart.products[index];
+            }else{
+                return 'No existe el producto en el carro seleccionado';
+            }
+        } catch (error) {
+            return error
+        }
+    };
+};
 
 export const cartManager = new CartManager();
 

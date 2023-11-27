@@ -2,8 +2,6 @@ export const authMiddleware = (role) => {
     return (req,res,next) => {
         if(Array.isArray(role)){
             if(!role.includes(req.user.role)){
-                console.log('Entro al primero')
-                console.log(req.user.role)
                 return res.status(401).json({message:'You are not authorized to access this route'});
             };
         };

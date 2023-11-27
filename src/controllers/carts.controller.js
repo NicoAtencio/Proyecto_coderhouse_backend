@@ -75,7 +75,7 @@ class CartsControllers {
     } catch (error) {
       res.status(500).json({ error });
     }
-  }
+  };
 
   async processPurchase(req, res) {
     const { cid } = req.params;
@@ -89,7 +89,21 @@ class CartsControllers {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
+  };
+
+  async subtractQuantity(req,res){
+    const {cid,pid} = req.params;
+    try {
+      const response = await cartServices.subtractQuantity(cid,pid);
+      if(!response){
+        return res.status(400).json({message: "The product is not in the cart"})
+      }
+      res.status(200).json(response);
+    } catch (error) {
+      res.status(500).json({message: error})
+    }
   }
+
 }
 
 export const cartsController = new CartsControllers();

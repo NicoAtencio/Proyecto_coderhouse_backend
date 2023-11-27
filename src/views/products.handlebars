@@ -6,44 +6,53 @@
     {{#if username.value}}
     <h2>Hola {{username.username}} estos son los productos disponibles</h2>
     {{/if}}
-    {{!-- <div class="container contenedor_productos"> --}}
-        <div class="row g-2">
-            {{#each products}}
-            <div class="col-6 col-sm-4 col-md-3 contenedor__producto">
-                <div class="producto border bg-light">
-                    {{#if this._doc.thumbnails}}
-                    <img src="/images/{{this._doc.thumbnails}}" alt="imagen sin producto" class="producto__sin-imagen">
-                    {{else}}
-                    <img src="/images/sin_producto.png" alt="imagen sin producto" class="producto__sin-imagen">
-                    {{/if}}
-                    <div class="produto__nombre">
-                        <p>{{this._doc.title}}</p>
-                    </div>
-                    <div class="producto__precio">
-                        <p>${{this._doc.price}}</p>
-                    </div>
-                    <div>
-                        <button type="button" class="restar" id={{this._doc._id}}>-</button>
-                        <button type="button" class="agregar" id={{this._doc._id}}>+</button>
-                    </div>
+    <button id="compra">Ver carro de compra</button>
+    <div class="row g-2">
+        {{#each products}}
+        <div class="col-6 col-sm-4 col-md-3 contenedor__producto">
+            <div class="producto border bg-light">
+                {{#if this._doc.thumbnails}}
+                <img src="/images/{{this._doc.thumbnails}}" alt="imagen sin producto" class="producto__sin-imagen">
+                {{else}}
+                <img src="/images/sin_producto.png" alt="imagen sin producto" class="producto__sin-imagen">
+                {{/if}}
+                <div class="produto__nombre">
+                    <p>{{this._doc.title}}</p>
+                </div>
+                <div class="producto__precio">
+                    <p>${{this._doc.price}}</p>
+                </div>
+                <div class="botones-carro">
+                    <button type="button" class="restar" id={{this._doc._id}}>-</button>
+                    <button type="button" class="agregar" id={{this._doc._id}}>+</button>
                 </div>
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
-    <form id="pay">
-        <input type="submit" value="Comprar">
-    </form>
+</div>
+<form id="pay">
+    <input type="submit" value="Comprar">
+</form>
 
-    <form action="/api/messages" method="get">
-        <input type="submit" value="Restaurar contraseña">
-    </form>
+<form action="/api/messages" method="get">
+    <input type="submit" value="Restaurar contraseña">
+</form>
 
-    <form action="/api/users/logout" method="get">
-        <input type="submit" value="Cerrar sesion">
-    </form>
+<form action="/api/users/logout" method="get">
+    <input type="submit" value="Cerrar sesion">
+</form>
+<aside class="ocultar" id="carro">
+    <div class="carro__secciones">
+
+    </div>
+    <div class="contenedor__comprar">
+        <button class="boton__comprar">Comprar</button>
+    </div>
+</aside>
 
 </div>
 {{!-- Destruye la sesion al hacer click --}}
 <script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/products.js"></script>

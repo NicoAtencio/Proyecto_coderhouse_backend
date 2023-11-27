@@ -68,6 +68,11 @@ class CartServices {
         }
     };
 
+    async subtractQuantity (cid,pid) {
+        const product = await cartManager.subtractProduct(cid,pid);
+        return product
+    }
+
     async completePurchase (cid,userId) {
         try {
             const cart = await cartManager.findById(cid);
