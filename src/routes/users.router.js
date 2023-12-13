@@ -4,11 +4,21 @@ import { userController } from "../controllers/users.controller.js";
 
 const router = Router();
 
-router.post('/signup', userController.createUser)
+router.post('/signup', userController.createUser);
 
-
+// Destruir sesion en caso de que exista.
 router.get('/logout', userController.destroySession);
-// Al realizar la peticion get destruye la sesion en caso de que exista.
+
+
+router.delete('/:uid', userController.deleteUser);
+
+
+// Eliminar usuarios que hace mas de dos dias no se conectan
+router.delete('/', userController.deleteUsersByTime);
+
+router.put('/changerole', userController.newRole);
+
+router.get('/', userController.findUsers);
 
 
 // Passport GIT-HUB

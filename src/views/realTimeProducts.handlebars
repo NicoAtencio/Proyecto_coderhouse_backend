@@ -1,17 +1,17 @@
-<form id="formulario">
-    <input type="text" id="" placeholder="Nombre del producto" required="">
-    <input type="text" id="" placeholder="Descripcion" required="">
+<form id="formulario" enctype="multipart/form-data">
+    <input type="text" id="" placeholder="Nombre del producto" required="" name="title">
+    <input type="text" id="" placeholder="Descripcion" required="" name="description">
     <input type="number" name="code" id="code" placeholder="codigo" required="">
     <input type="number" name="price" id="price" placeholder="precio"  required="">
-    <select class="" aria-label="Default select example" required="">
+    <select class="" aria-label="Default select example" required="" name="status">
         <option selected>Estado</option>
         <option value="true">True</option>
         <option value="false">False</option>
     </select>
     <input type="number" name="stock" id="stock" placeholder="stock" required="">
     <input type="text" name="category" id="" placeholder="categoria" required="">
-    <input type="file" name="imagen" id="">
-    <input type="submit" value="Agregar" >
+    <input type="file" name="thumbnails">
+    <input type="submit" value="Agregar">
 </form>
 
     <div class="container contenedor contenedor_tiempo_real"> 

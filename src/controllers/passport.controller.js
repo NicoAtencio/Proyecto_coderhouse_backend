@@ -4,6 +4,7 @@ class PassportControllers {
 
     findUser = async (username,password) => {
         const response  = await passportServices.user(username,password);
+        await passportServices.updateDateConecction(response._id);
         if(!response) return false;
         return response;
     };

@@ -5,20 +5,10 @@ const contenedor = document.querySelector('.actualizar');
 const formularioEliminar = document.getElementById('eliminar');
 
 formulario.addEventListener('submit', (e) => {
-    const imagen = formulario[7].value || '';
-    const newProduct = {
-        title: formulario[0].value,
-        description: formulario[1].value,
-        code: parseInt(formulario[2].value),
-        price: parseInt(formulario[3].value),
-        status: formulario[4].value,
-        stock: parseInt(formulario[5].value),
-        category: formulario[6].value,
-        thumbnails: formulario[7].value
-    };
     e.preventDefault();
-    enviarDatos(newProduct);
-    formulario.reset();
+    const formData = new FormData(formulario);
+    enviarDatos(formData);
+
 });
 
 formularioEliminar.addEventListener('submit', (e) => {
@@ -39,14 +29,12 @@ formularioEliminar.addEventListener('submit', (e) => {
 const enviarDatos = async (obj) => {
     await fetch("http://localhost:8080/api/products", {
         method:"POST",
-        body: JSON.stringify(obj),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-        },
+        body: obj,
     })
     .then(res => res.json())
     .then(res => {
-        alert('Producto agregado con exito')
+        alert('Producto agregado con exito');
+        formulario.reset();
     })
     .catch(err => console.log(err))
 }

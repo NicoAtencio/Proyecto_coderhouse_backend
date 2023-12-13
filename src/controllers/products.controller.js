@@ -2,6 +2,9 @@ import { productsServices } from "../services/products.service.js";
 import socketServer from "../app.js";
 import CustomError from "../errors/CustomError.js";
 import { errorMessagges } from "../errors/error.enum.js";
+import { __dirname } from "../utils.js";
+import fs from "fs";
+
 class ProductsController {
     
     async allProducts (req,res){
@@ -27,9 +30,15 @@ class ProductsController {
 
     async createNewProduct (req,res) {
         try {
-            console.log('body',req.body)
-            const product = await productsServices.newProduct({product:req.body,id:req.session.passport.user});
+            console.log('file',req.file)
+            const product = await productsServices.newProduct({product:req.body,id:req.session.passport.user,originalname:req.file.originalname});
             // Se envia un objeto con las propiedades del nuevo producto y ademas el id del usuario que lo creó.
+            // Guardar imagen si es que se envio
+            if(req.file){
+                console.log('Entro a req.file')
+                const newPath = `${__dirname}/public/images/${req.file.originalname}`;
+                fs.renameSync(req.file.path, newPath);
+            }
             const response = await productsServices.getProducts({limit:200});
             const products = response.payload.map(prod => ({ ...prod}));
             socketServer.emit('datos', products);

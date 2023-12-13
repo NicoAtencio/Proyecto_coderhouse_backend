@@ -1,3 +1,21 @@
+h1{
+    display: none;
+}
+
+
+ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background: red;
+    padding: 20px;
+}
+
+li{
+    cursor: pointer;
+}
+
 .producto{
     display: flex;
     flex-direction: column;

@@ -68,6 +68,10 @@ class ViewsController {
     }
   };
 
+  getUsers = async (req,res) => {
+    res.render("users")
+  }
+
   login = (req, res) => {
     const { username } = req.query;
     if (username) {

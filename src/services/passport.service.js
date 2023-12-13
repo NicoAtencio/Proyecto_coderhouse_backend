@@ -1,6 +1,7 @@
 import { passportManager } from "../DAL/DAOs/MongoDAOs/managers/PassportManager.mongo.js";
 import { compareData } from "../utils.js";
-import {cartManager} from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js"
+import {cartManager} from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js";
+import { userManager } from "../DAL/DAOs/MongoDAOs/managers/UsersManager.js";
 
 class PassportServices {
 
@@ -10,7 +11,7 @@ class PassportServices {
             if(!user) return false; 
             const isPassword = await compareData(password,user.password);
             if(!isPassword) return false;
-            return user
+            return user;
         } catch (error) {
             return error;
         }
@@ -36,6 +37,11 @@ class PassportServices {
             return error
         }
     };
+
+    updateDateConecction = async (id) => {
+        await userManager.updateOne(id,{last_connection:Date.now()});
+        return true;
+    }
 }
 
 export const passportServices = new PassportServices();

@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
     fromGithub: {
         type: Boolean,
         default: false
+    },
+    last_connection:{
+        type: Date,
+        default: Date.now
     }
 });
 

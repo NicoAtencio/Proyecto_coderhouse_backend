@@ -1,6 +1,13 @@
 <header>
     <link rel="stylesheet" href="/estilos/products.css">
 </header>
+<head>
+    <ul>
+        <li><i class="fa-solid fa-cart-shopping fa-shake carrito"></i></li>
+        <li>Cerrar sesion</li>
+        <li>Restaurar contraseña</li>
+    </ul>
+</head>
 <div class="container contenedor_productos px-4">
 
     {{#if username.value}}
@@ -44,9 +51,8 @@
 </form>
 <aside class="ocultar" id="carro">
     <div class="carro__secciones">
-
     </div>
-    <div class="contenedor__comprar">
+    <div class="contenedor__comprar ocultar">
         <button class="boton__comprar">Comprar</button>
     </div>
 </aside>
@@ -55,4 +61,5 @@
 {{!-- Destruye la sesion al hacer click --}}
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://kit.fontawesome.com/4f2d52165e.js" crossorigin="anonymous"></script>
 <script src="/js/products.js"></script>

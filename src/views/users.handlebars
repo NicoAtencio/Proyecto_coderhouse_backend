@@ -1,0 +1,44 @@
+<h2>Usuarios</h2>
+<div class="container">
+    <div id="contenedor__usuarios">
+
+        <div class="row">
+
+            <div class="col">ID</div>
+            <div class="col">Name</div>
+            <div class="col">Email</div>
+            <div class="col">Age</div>
+            <div class="col">Role</div>
+
+        </div>
+
+    </div>
+
+    <form id="formulario_role">
+
+        <input type="text" placeholder="Ingresar id" name="id">
+
+        <select class="" aria-label="Default select example" required="" name="role">
+
+            <option selected>Seleccionar role</option>
+            <option value="user">user</option>
+            <option value="premium">premium</option>
+            <option value="admin">admin</option>
+
+        </select>
+
+        <button type="submit" class="btn btn-info login">Cambiar role</button>
+
+    </form>
+
+    <form id="formulario_eliminar">
+
+        <input type="text" placeholder="Ingresar id" name="id">
+        <button type="submit" class="btn btn-info login">Eliminar</button>
+        
+    </form>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/users.js"></script>

@@ -6,7 +6,7 @@ class SessionServices{
     dateUser = async (id) => {
         try {
             const data = await sessionManager.findById(id);
-            const user = new SessionDTO(data)
+            const user = new SessionDTO(data);
             const response = user.getData();
             return response;
         } catch (error) {

@@ -63,7 +63,7 @@ const funcionalidades = async () => {
         const cargar = document.createElement("div");
         agregrarCargador(i,cargar);
       fetch(
-        `http://localhost:8080/api/carts/subtract/${idCart}/product/${btnRestar[i].id}`,
+        `/api/carts/subtract/${idCart}/product/${btnRestar[i].id}`,
         {
           method: "PUT",
           body: JSON.stringify({}),
@@ -131,10 +131,9 @@ const funcionalidades = async () => {
 };
 
 const obtenerCarro = async (id) => {
-  await fetch(`http://localhost:8080/api/carts/${id}`)
+  await fetch(`/api/carts/${id}`)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res.cart.products);
       seccionesCarro.innerHTML = "";
       for (let i = 0; i < res.cart.products.length; i++) {
         const div = document.createElement("div");
@@ -160,7 +159,7 @@ funcionalidades();
 
 btnpay.addEventListener("submit", (e) => {
   e.preventDefault();
-  fetch(`http://localhost:8080/api/carts/${idCart}/purchase`, {
+  fetch(`/api/carts/${idCart}/purchase`, {
     method: "GET",
     headers: { "content-type": "application/json; charset=UTF-8" },
   })

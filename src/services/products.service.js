@@ -24,16 +24,19 @@ class ProductsServices{
         try {
             const user = await sessionManager.findById(obj.id);
             if(obj.product.thumbnails){
-                const pathImagen = obj.product.thumbnails.split("\\")
-                return await productsManager.createOne({...obj.product, owner: obj.id, thumbnails:pathImagen[2]})
+                if(user.role === 'premium'){
+                    return await productsManager.createOne({...obj.product,owner: obj.id,thumbnails:obj.originalname})
+                }else{
+                    const newProduct = await productsManager.createOne({...obj.product, thumbnails:obj.originalname});
+                    return newProduct
+                }
             }
             if(user.role === 'premium'){
-                return await productsManager.createOne({...obj.product, owner: obj.id})
+                return await productsManager.createOne({...obj.product,owner: obj.id,thumbnails:obj.originalname})
             }
-            const newProduct = await productsManager.createOne({...obj.product, owner: obj.id});
+            const newProduct = await productsManager.createOne({...obj.product, thumbnails:obj.originalname});
             return newProduct
         } catch (error) {
-            console.log(error)
             throw error;
         }
     };

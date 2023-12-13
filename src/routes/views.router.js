@@ -18,12 +18,15 @@ router.get('/chat',viewsController.getMessages);
 
 router.get('/pay', viewsController.processPurchaseData)
 
+router.get('/users', viewsController.getUsers);
+
 // login y signup
 
 router.get('/login', viewsController.login);
 
 router.get('/signup', viewsController.signup);
 
-router.get('/resetpassword', viewsController.resetPassword)
+router.get('/resetpassword', viewsController.resetPassword);
+
 
 export default router;
