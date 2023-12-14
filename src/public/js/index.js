@@ -14,7 +14,7 @@ formulario.addEventListener('submit', (e) => {
 formularioEliminar.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = formularioEliminar[0].value;
-    fetch(`http://localhost:8080/api/products/${id}`,{
+    fetch(`/api/products/${id}`,{
         method: "DELETE",
         headers: {
             "Content-type": "application/json; charset=UTF-8",

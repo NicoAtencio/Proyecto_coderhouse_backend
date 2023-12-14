@@ -4,6 +4,7 @@ import CustomError from "../errors/CustomError.js";
 import { errorMessagges } from "../errors/error.enum.js";
 import { __dirname } from "../utils.js";
 import fs from "fs";
+import { transporter } from "../nodemailer/nodemailer.js";
 
 class ProductsController {
     
@@ -30,12 +31,13 @@ class ProductsController {
 
     async createNewProduct (req,res) {
         try {
-            console.log('file',req.file)
-            const product = await productsServices.newProduct({product:req.body,id:req.session.passport.user,originalname:req.file.originalname});
+            const product = await productsServices.newProduct({
+                product:req.body,
+                id:req.session.passport.user,
+                originalname:req.file.originalname});
             // Se envia un objeto con las propiedades del nuevo producto y ademas el id del usuario que lo creó.
             // Guardar imagen si es que se envio
             if(req.file){
-                console.log('Entro a req.file')
                 const newPath = `${__dirname}/public/images/${req.file.originalname}`;
                 fs.renameSync(req.file.path, newPath);
             }
@@ -68,12 +70,23 @@ class ProductsController {
         const {pid} = req.params;
         try {
           const response = await productsServices.deleteProduct(pid,req.session.passport.user);
-          if(!response){
+          if(!response.productDeleted){
             return res.status(400).json({message:'You are not authorized because you have not been the creator of the product.'});
           }
           const respuesta = await productsServices.getProducts({limit:200});
           const products = respuesta.payload.map(product => ({ ...product}));
           socketServer.emit('eliminar', products);
+          if(response.emailUser){
+            const messageOptions = {
+                from: 'Hector Atencio',
+                to: response.emailUser,
+                subject: 'Producto eliminado',
+                html: `
+                  <h2>Su producto ${response.productDeleted.title} a sido eliminado de la app e-commers del curso de coderhouse, 
+                  si usted no lo ha eliminado ha sido eliminado por un administrador.</h2>`
+              }
+              await transporter.sendMail(messageOptions);
+          }
           res.status(200).json({message: 'Delete product', response});
         } catch (error) {
           res.status(500).json({error});
