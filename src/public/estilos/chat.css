@@ -1,0 +1,18 @@
+h2{
+    text-align: center;
+}
+
+#formulario{
+    padding-top: 30px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+input{
+    margin-left: 10px;
+}
+
+#respuestas{
+    padding: 30px;
+}

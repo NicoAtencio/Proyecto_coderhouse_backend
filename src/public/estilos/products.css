@@ -2,18 +2,45 @@ h1{
     display: none;
 }
 
+.titulo{
+    text-align: center;
+    padding: 15px;
+}
+
+
+/* Barra de navegación */
+
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
 
 ul{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    background: red;
+    background: rgb(231, 231, 231);
     padding: 20px;
+    list-style-type: none;
 }
 
 li{
     cursor: pointer;
+}
+
+li:hover{
+    color: rgb(90, 89, 89)
+}
+
+
+
+/* Productos */
+
+.contenedor_productos{
+    margin-top: 80px;
 }
 
 .producto{
@@ -24,6 +51,7 @@ li{
     box-sizing: border-box;
     justify-content: space-evenly;
     border-radius: 5%;
+    max-height: 300px;
 }
 
 .producto__sin-imagen{
@@ -33,6 +61,14 @@ li{
     /* background: red; */
 }
 
+/* Boton de comprar */
+
+#pay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
 
 /* Carro de compras */
 

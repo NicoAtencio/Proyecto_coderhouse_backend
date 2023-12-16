@@ -79,6 +79,14 @@ class UserController {
       if(!user){
         return res.status(400).json({message: 'Incorrect ID'});
       }
+      const messageOptions = {
+        from: 'Hector Atencio',
+        to: user.email,
+        subject: 'Usuario eliminado',
+        html: `
+          <h2>Su usuario de la app de proyecto final en Coderhouse a sido eliminado por un administrador.</h2>`
+      }
+      await transporter.sendMail(messageOptions);
       const users = await userService.allUsers();
       socketServer.emit('users', users);
       res.status(200).json({message:'User deleted', user});

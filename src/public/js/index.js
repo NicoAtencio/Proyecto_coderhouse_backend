@@ -21,13 +21,21 @@ formularioEliminar.addEventListener('submit', (e) => {
         },
     })
     .then(res => res.json())
-    .then(res=> console.log(res))
+    .then(res=> {
+        if(!res.response){
+            alert('No estas autorizado a eliminar este producto');
+            formularioEliminar.reset();
+        }else{
+            alert('Producto eliminado con exito');
+            formularioEliminar.reset();
+        }
+    })
     .catch(err => console.log(err))
 });
 
 
 const enviarDatos = async (obj) => {
-    await fetch("http://localhost:8080/api/products", {
+    await fetch("/api/products", {
         method:"POST",
         body: obj,
     })

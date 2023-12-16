@@ -5,7 +5,7 @@ formulario.addEventListener('submit', (e) => {
     e.preventDefault();
     const user = formulario[0].value;
     const message = formulario[1].value;
-    fetch(`http://localhost:8080/api/chats/64f0f89bcccc069ea5c3eb38`, {
+    fetch(`/api/chats/64f0f89bcccc069ea5c3eb38`, {
         method: 'POST',
         body: JSON.stringify({
             user,

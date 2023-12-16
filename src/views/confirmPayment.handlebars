@@ -1,5 +1,42 @@
+<head>
+    <link rel="stylesheet" href="/estilos/confirmPayment.css">
+</head>
 <h2>Compra realizada con exito, a continuación se detallan los datos de su compra</h2>
-{{#each data}}
-    <p>{{this.product.title}}</p>
-    <p>{{this.quantity}}</p>
-{{/each}}
+<div class="container">
+    <div class="row">
+        <div class="col">Producto</div>
+        <div class="col">Cantidad</div>
+        <div class="col">Precio</div>
+        <div class="col">Total</div>
+    </div>
+
+    {{#each data}}
+    <div class="row">
+
+        <div class="col">
+            {{this.product.title}}
+        </div>
+        <div class="col">
+            {{this.quantity}}
+        </div>
+        <div class="col">
+            {{this.product.price}}
+        </div>
+        <div class="col">
+            {{this.total}}
+        </div>
+    </div>
+    {{/each}}
+
+    <div class="row">
+        <div class="col">-</div>
+        <div class="col">-</div>
+        <div class="col">-</div>
+        <div class="col">{{this.total}}</div>
+    </div>
+
+    <div class="volver">
+        <button onclick="location.href='/products'" type="button" class="btn btn-dark">Volver a la página principal</button>
+    </div>
+
+</div>

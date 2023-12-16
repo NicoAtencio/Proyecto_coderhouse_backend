@@ -28,7 +28,15 @@ class ViewsController {
 
   processPurchaseData(req, res) {
     try {
-      res.render("confirmPayment", { data: req.cookies.data });
+      const data = req.cookies.data;
+      data.forEach(product => {
+        product.total = product.product.price * product.quantity;
+      });
+      const totales = data.map(pro => pro.total);
+      const total = totales.reduce((acumulater,currentValue) => {
+        return acumulater + currentValue
+      }, 0);
+      res.render("confirmPayment", { data:data,total:total });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

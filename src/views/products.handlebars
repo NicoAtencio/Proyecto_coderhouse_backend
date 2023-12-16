@@ -1,19 +1,18 @@
-<header>
-    <link rel="stylesheet" href="/estilos/products.css">
-</header>
 <head>
-    <ul>
-        <li><i class="fa-solid fa-cart-shopping fa-shake carrito"></i></li>
-        <li>Cerrar sesion</li>
-        <li>Restaurar contraseña</li>
-    </ul>
+    <link rel="stylesheet" href="/estilos/products.css">
 </head>
+<header>
+    <ul>
+        <li id="compra"><i class="fa-solid fa-cart-shopping carrito"></i></li>
+        <li onclick="location.href='/api/users/logout'">Cerrar sesion</li>
+        <li onclick="location.href='/api/messages'">Restaurar contraseña</li>
+    </ul>
+</header>
 <div class="container contenedor_productos px-4">
 
     {{#if username.value}}
-    <h2>Hola {{username.username}} estos son los productos disponibles</h2>
+    <h2 class="titulo">Hola {{username.username}} estos son los productos disponibles</h2>
     {{/if}}
-    <button id="compra">Ver carro de compra</button>
     <div class="row g-2">
         {{#each products}}
         <div class="col-6 col-sm-4 col-md-3 contenedor__producto">
@@ -38,22 +37,22 @@
         {{/each}}
     </div>
 </div>
+
+
 <form id="pay">
-    <input type="submit" value="Comprar">
+    {{!-- <input type="submit" value="Comprar"> --}}
+    <button type="submit" value="Comprar" class="btn btn-success">Comprar</button>
 </form>
 
-<form action="/api/messages" method="get">
+{{!-- <form action="/api/messages" method="get">
     <input type="submit" value="Restaurar contraseña">
-</form>
+</form> --}}
 
-<form action="/api/users/logout" method="get">
+{{!-- <form action="/api/users/logout" method="get">
     <input type="submit" value="Cerrar sesion">
-</form>
+</form> --}}
 <aside class="ocultar" id="carro">
     <div class="carro__secciones">
-    </div>
-    <div class="contenedor__comprar ocultar">
-        <button class="boton__comprar">Comprar</button>
     </div>
 </aside>
 

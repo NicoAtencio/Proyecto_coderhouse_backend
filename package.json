@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/app.js",
-    "test": "mocha -t 20000 test/integretion/supertest.test.js"
+    "test": "mocha test/unit/User.test.js",
+    "supertest": "mocha -t 20000 test/integretion/supertest.test.js"
   },
   "author": "Hector Nicolas Atencio",
   "license": "ISC",

@@ -3,13 +3,11 @@ const contenedor = document.getElementById("contenedor__usuarios");
 const formularioRole = document.getElementById("formulario_role");
 const formularioEliminar = document.getElementById("formulario_eliminar");
 
-
 // Buscar y mostrar en pantallas todos los usuarios.
 const allUsers = () => {
   fetch("/api/users")
     .then((res) => res.json())
     .then((res) => {
-      contenedor.innerHTML = "";
       res.users.forEach((user) => {
         contenedor.innerHTML += `
             <div class="row">
@@ -36,24 +34,22 @@ const allUsers = () => {
 
 allUsers();
 
-
 // Elimina un usuario
 formularioEliminar.addEventListener("click", (e) => {
   e.preventDefault();
   const uid = formularioEliminar[0].value;
   fetch(`/api/users/${uid}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
-    }
+    },
   })
-  .then(res => res.json())
-  .then(res => {
-    formularioEliminar.reset();
-  })
-  .catch(err => console.log(err))
+    .then((res) => res.json())
+    .then((res) => {
+      formularioEliminar.reset();
+    })
+    .catch((err) => console.log(err));
 });
-
 
 // Modificar el role de un usuario.
 formularioRole.addEventListener("submit", (e) => {
@@ -76,28 +72,36 @@ formularioRole.addEventListener("submit", (e) => {
     .catch((err) => console.log(err));
 });
 
-
 // Recibe los usuarios al modificar uno y los vuelve a imprimir en pantalla actualizados.
 socketClient.on("users", (res) => {
-  contenedor.innerHTML = "";
+  contenedor.innerHTML = `
+    <div class="row">
+
+      <div class="col">ID</div>
+      <div class="col">Name</div>
+      <div class="col">Email</div>
+      <div class="col">Age</div>
+      <div class="col">Role</div>
+
+    </div>`;
   res.forEach((user) => {
     contenedor.innerHTML += `
-            <div class="row">
-                <div class="col">
-                    ${user.id}
-                </div>
-                <div class="col">
-                    ${user.name}
-                </div>
-                <div class="col">
-                    ${user.email}
-                </div>
-                <div class="col">
-                    ${user.age}
-                </div>
-                <div class="col">
-                    ${user.role}
-                </div>
-            </div>`;
+      <div class="row">
+          <div class="col">
+              ${user.id}
+          </div>
+          <div class="col">
+              ${user.name}
+          </div>
+          <div class="col">
+              ${user.email}
+          </div>
+          <div class="col">
+              ${user.age}
+          </div>
+          <div class="col">
+              ${user.role}
+          </div>
+      </div>`;
   });
 });

@@ -13,6 +13,7 @@ class PassportControllers {
         try {
             const response = await passportServices.userGitHub(username);
             if(!response) return false;
+            await passportServices.updateDateConecction(response._id);
             return response;
         } catch (error) {
             return error;

@@ -15,7 +15,7 @@ let idCart;
 // Ahi del carro del cliente que se obtiene con un fetch
 
 const funcionalidades = async () => {
-  await fetch(`http://localhost:8080/api/session/current`, {
+  await fetch(`/api/session/current`, {
     method: "GET",
     headers: { "content-type": "application/json; charset=UTF-8" },
   })
@@ -29,6 +29,7 @@ const funcionalidades = async () => {
   for (let i = 0; i < botones.length; i++) {
     botones[i].addEventListener("click", () => {
       const cargar = document.createElement("div");
+      btnCarro.classList.add('fa-shake');
       agregrarCargador(i,cargar);
       fetch(`/api/carts/${idCart}/product/${botones[i].id}`, {
         method: "PUT",
@@ -51,6 +52,7 @@ const funcionalidades = async () => {
               color: "#000",
             },
           }).showToast();
+          btnCarro.classList.remove('fa-shake');
           obtenerCarro(idCart);
           quitarCargador(i,cargar)
         })
@@ -62,6 +64,7 @@ const funcionalidades = async () => {
     btnRestar[i].addEventListener("click", () => {
         const cargar = document.createElement("div");
         agregrarCargador(i,cargar);
+        btnCarro.classList.add('fa-shake');
       fetch(
         `/api/carts/subtract/${idCart}/product/${btnRestar[i].id}`,
         {
@@ -122,6 +125,7 @@ const funcionalidades = async () => {
             quitarCargador(i,cargar)
           }
           obtenerCarro(idCart);
+          btnCarro.classList.remove('fa-shake');
         })
         .catch((error) => console.log(error));
     });
@@ -159,12 +163,17 @@ funcionalidades();
 
 btnpay.addEventListener("submit", (e) => {
   e.preventDefault();
+  btnpay.innerHTML = `
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    `
   fetch(`/api/carts/${idCart}/purchase`, {
     method: "GET",
     headers: { "content-type": "application/json; charset=UTF-8" },
   })
     .then((res) => res.json())
-    .then((res) => (window.location.href = "/pay"))
+    .then((res) => (location.href = "/pay"))
     .catch((err) => console.log(err));
 });
 

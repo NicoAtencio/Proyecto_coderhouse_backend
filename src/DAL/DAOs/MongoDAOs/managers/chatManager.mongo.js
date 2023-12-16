@@ -36,6 +36,13 @@ class ChatManager extends BasicManager{
         }
     }
 
+    async clearChat(cid){
+        const chat = await chatModel.findById(cid);
+        chat.messages = [];
+        await chat.save();
+        return chat;
+    }
+
 };
 
 export const chatManager = new ChatManager();

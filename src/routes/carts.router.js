@@ -39,7 +39,7 @@ router.put('/quantity/:cid/product/:pid',authMiddleware(['premium','user']), car
 // Modifica la cantidad de un producto dentro de una carro, pasado por body la nueva cantidad.
 
 
-router.get('/:cid/purchase',authMiddleware('user'), cartsController.processPurchase)
+router.get('/:cid/purchase',authMiddleware(['user','premium']), cartsController.processPurchase);
 
 export default router;
 

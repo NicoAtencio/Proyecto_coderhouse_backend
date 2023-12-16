@@ -13,7 +13,7 @@ class UserService {
   }
 
   async newUser(obj) {
-    try {
+
       const isUserAlreadyCreated = await userManager.findUserByUsername(
         obj.user_name
       );
@@ -27,9 +27,7 @@ class UserService {
         cart: [newCart._id],
       });
       return response;
-    } catch (error) {
-      throw error;
-    }
+      
   };
 
   async deleteUsersByConnect(){
@@ -42,7 +40,9 @@ class UserService {
       // Hace que se eliminen los usuarios que hace mas de 48 horas no ingresan a la app.
     });
     for(let user of usersToDelete){
-      await userManager.deleteOne(user._id)
+      await userManager.deleteOne(user._id);
+      const cart = user.cart;
+      await cartManager.deleteOne(cart);
     }
     return usersToDelete;
   }
@@ -54,6 +54,8 @@ class UserService {
 
   async deleteUserById (id) {
     const user = await userManager.deleteOne(id);
+    const cart = user.cart;
+    await cartManager.deleteOne(cart);
     return user;
   }
 }

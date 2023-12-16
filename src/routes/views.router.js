@@ -18,7 +18,7 @@ router.get('/chat',viewsController.getMessages);
 
 router.get('/pay', viewsController.processPurchaseData)
 
-router.get('/users', viewsController.getUsers);
+router.get('/users',authMiddleware('admin') ,viewsController.getUsers);
 
 // login y signup
 

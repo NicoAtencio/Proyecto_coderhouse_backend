@@ -33,6 +33,16 @@ class ChatController {
         }
     }
 
+    async clearChat (req,res){
+        const {cid} = req.params;
+        try {
+            await chatServices.clear(cid);
+            res.status(200).json({message: 'Chat cleared'});
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+
 }
 
 

@@ -3,33 +3,20 @@ import { cartManager } from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js
 import { chatManager } from "../DAL/DAOs/MongoDAOs/managers/chatManager.mongo.js";
 
 class ViewsServices {
-    
   getProducts = async (query) => {
-    try {
-      const products = await productsManager.getProducts(query);
-      return products;
-    } catch (error) {
-      return error;
-    }
+    const products = await productsManager.getProducts(query);
+    return products;
   };
 
   getCartById = async (id) => {
-    try {
-      const response = await cartManager.findById(id);
-      return response;
-    } catch (error) {
-      throw error.message;
-    }
-  }
+    const response = await cartManager.findById(id);
+    return response;
+  };
 
   findMessages = async (cid) => {
-    try {
-      const response = await chatManager.getMessages(cid);
-      return response;
-    } catch (error) {
-      throw error.message;
-    }
-  }
+    const response = await chatManager.getMessages(cid);
+    return response;
+  };
 }
 
 export const viewsServices = new ViewsServices();

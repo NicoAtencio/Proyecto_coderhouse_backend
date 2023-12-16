@@ -18,7 +18,7 @@ formulario.addEventListener('submit',(e) => {
 });
 
 const createdUser = async (user) => {
-    await fetch('http://localhost:8080/api/users/signup', {
+    await fetch('/api/users/signup', {
         method: 'POST',
         body: JSON.stringify(user),
         headers : {"content-type" : "application/json; charset=UTF-8" }
