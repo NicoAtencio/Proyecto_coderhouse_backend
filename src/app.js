@@ -83,9 +83,12 @@ app.use('/api/messages', messageRouter);
 // Error
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || config.port;
+// const PORT = process.env.PORT || config.port;
 
-const httpServer = app.listen(PORT, () => {
+// const httpServer = app.listen(PORT, () => {
+//     logger.info(`Servidor escuchando en el puerto ${PORT}...`)
+// });
+const httpServer = app.listen(() => {
     logger.info(`Servidor escuchando en el puerto ${PORT}...`)
 });
 
