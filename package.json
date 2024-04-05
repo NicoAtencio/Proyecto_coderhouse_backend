@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/app.js",
     "test": "mocha test/unit/User.test.js",
     "supertest": "mocha -t 20000 test/integretion/supertest.test.js"
   },

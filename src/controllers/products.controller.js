@@ -1,5 +1,5 @@
 import { productsServices } from "../services/products.service.js";
-import socketServer from "../index.js";
+import socketServer from "../app.js";
 import CustomError from "../errors/CustomError.js";
 import { errorMessagges } from "../errors/error.enum.js";
 import { __dirname } from "../utils.js";
