@@ -22,7 +22,7 @@ router.get('/users',authMiddleware('admin') ,viewsController.getUsers);
 
 // login y signup
 
-router.get('/login', viewsController.login);
+router.get('/', viewsController.login);
 
 router.get('/signup', viewsController.signup);
 
