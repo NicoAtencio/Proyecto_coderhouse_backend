@@ -1,5 +1,5 @@
 import { chatServices } from "../services/chats.service.js";
-import socketServer from "../app.js";
+import socketServer from "../index.js";
 
 class ChatController {
     async createNewChat (req,res) {

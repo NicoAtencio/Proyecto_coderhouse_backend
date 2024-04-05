@@ -1,7 +1,7 @@
 import CustomError from "../errors/CustomError.js";
 import { errorMessagges } from "../errors/error.enum.js";
 import { userService } from "../services/users/users.services.js";
-import socketServer from "../app.js";
+import socketServer from "../index.js";
 import { transporter } from "../nodemailer/nodemailer.js";
 
 class UserController {

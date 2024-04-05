@@ -2,7 +2,7 @@ import { Router } from "express";
 import { productsManager } from "../DAL/DAOs/MongoDAOs/managers/ProductManager.mongo.js"
 import { cartManager } from "../DAL/DAOs/MongoDAOs/managers/CartManager.mongo.js";
 import { chatManager } from "../DAL/DAOs/MongoDAOs/managers/chatManager.mongo.js";
-import socketServer from "../app.js";
+import socketServer from "../index.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { viewsController } from "../controllers/views.controller.js";
 
